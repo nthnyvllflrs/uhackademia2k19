@@ -27,3 +27,9 @@ Route::post('/barangays', 'BarangayController@store');
 Route::get('/barangays/{barangay}', 'BarangayController@show');
 Route::put('/barangays/{barangay}', 'BarangayController@update');
 Route::delete('/barangays/{barangay}', 'BarangayController@destroy');
+
+Route::get('/residents', 'ResidentController@index');
+Route::post('/residents', 'ResidentController@store');
+Route::get('/residents/{resident}', 'ResidentController@show');
+Route::put('/residents/{resident}', 'ResidentController@update');
+Route::delete('/residents/{resident}', 'ResidentController@destroy');
