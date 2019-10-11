@@ -26,13 +26,14 @@ class TestSeeder extends Seeder
         User::create([
             'username' => 'resident',
             'password' => 'password',
-            'full_name' => 'Juan dela Cruz',
+            'full_name' => 'Juan dela Cruz',   
             'role' => 1,
         ]);
         Resident::create([
             'user_id' => 2,
             'contact_number' => "09000000001",
             'address' => 'Zamboanga City',
+            'barangay_id' => 1,
             'lat' => '6.919854',
             'lng' => '122.073427',
         ]);

@@ -10,6 +10,7 @@ class Resident extends Model
     
     protected $fillable = [
         'user_id',
+        'barangay_id',
         'contact_number',
         'address',
         'lat',
@@ -18,5 +19,9 @@ class Resident extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function barangay(){
+        return $this->belongsTo('App\Barangay');
     }
 }

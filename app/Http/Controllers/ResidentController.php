@@ -10,13 +10,14 @@ class ResidentController extends Controller
 {
     public function index()
     {
-        return Resident::all();
+        return Resident::with(['barangay'])->get();
     }
 
     public function create(Request $request){
         
         $validator = Validator::make($request->all(), [
             'contact_number' => 'required',
+            'barangay' => 'required',
             'address' => 'required|string',
             'lat' => 'required|min:-90|max:90',
             'lng' => 'required|min:-180|max:180',
@@ -28,6 +29,7 @@ class ResidentController extends Controller
 
         Resident::create([
             'user_id' => auth()->user()->id,
+            'barangay_id' => $request->barangay_id,
             'contact_number' => $request->contact_number,
             'address' => $request->address,
             'lat' => $request->lat,

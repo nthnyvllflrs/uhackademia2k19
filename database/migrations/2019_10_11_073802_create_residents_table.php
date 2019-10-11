@@ -16,6 +16,7 @@ class CreateResidentsTable extends Migration
         Schema::create('residents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
+            $table->integer('barangay_id')->unsigned();
             $table->string('contact_number');
             $table->string('address');
             $table->decimal('lat', 6, 2);
