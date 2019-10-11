@@ -5,6 +5,7 @@ window.Vue = require('vue');
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import * as VueGoogleMaps from "vue2-google-maps";
 
 Vue.use(Vuetify)
 const opts = {icons:{iconfont: 'fa',}}
@@ -18,15 +19,23 @@ import Dashboard from './components/DashboardComponent.vue'
 import Report from './components/ReportComponent.vue'
 import Barangay from './components/BarangayComponent.vue'
 import Resident from './components/ResidentComponent.vue'
+import GoogleMap from './components/GoogleMap.vue'
 
 Vue.use(VueRouter)
+Vue.use(VueGoogleMaps, {
+    load: {
+      key: "AIzaSyBLvHFeixDacvhmdX-L_0EoG4of6n0pM1A",
+      libraries: "places" // necessary for places input
+    }
+  });
 const routes = [
     {
         path: '/',
         name: 'home',
         component: Home,
         children: [
-            { path: '/login', name: 'login', components: { landing: Login}}
+            { path: '/login', name: 'login', components: { landing: Login}},
+            { path: '/map', name: 'map', components: { landing: GoogleMap}}
         ],
     },
     {
