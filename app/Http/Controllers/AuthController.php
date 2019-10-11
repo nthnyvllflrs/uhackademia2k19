@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function login(Request $request) {
         $user = User::where('username', $request->username)->first();
         if($user) {
-            if(Hash::chek($request->password, $user->password)) {
+            if(Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 return response(['token' => $token], 200);
             } else {
