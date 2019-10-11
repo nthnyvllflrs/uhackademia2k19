@@ -2087,9 +2087,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      error: null,
       userRole: null,
       dialog: false,
       loading: false,
@@ -2200,7 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this4.cancel();
         })["catch"](function (error) {
-          alert(error);
+          _this4.error = error.message;
         })["finally"](function (x) {
           _this4.loading = false;
         });
@@ -2219,7 +2223,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this4.cancel();
         })["catch"](function (error) {
-          alert(error);
+          _this4.error = error.message;
         })["finally"](function (x) {
           _this4.loading = false;
         });
@@ -2298,9 +2302,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      error: null,
       userRole: null,
       dialog: false,
       loading: false,
@@ -2441,7 +2449,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this5.cancel();
         })["catch"](function (error) {
-          alert(error);
+          _this5.error = error.message;
         })["finally"](function (x) {
           _this5.loading = false;
         });
@@ -2465,7 +2473,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this5.cancel();
         })["catch"](function (error) {
-          alert(error);
+          _this5.error = error.message;
         })["finally"](function (x) {
           _this5.loading = false;
         });
@@ -2770,9 +2778,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      error: null,
       Administrator: false,
       dialog: false,
       loading: false,
@@ -2924,7 +2936,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this6.cancel();
         })["catch"](function (error) {
-          alert(error);
+          _this6.error = error.message;
         })["finally"](function (x) {
           _this6.loading = false;
         });
@@ -2948,7 +2960,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this6.cancel();
         })["catch"](function (error) {
-          alert(error);
+          _this6.error = error.message;
         })["finally"](function (x) {
           _this6.loading = false;
         });
@@ -2991,12 +3003,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       loading: false,
       username: null,
-      password: null
+      password: null,
+      error: null
     };
   },
   methods: {
@@ -3016,7 +3032,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$router.push('reports');
       })["catch"](function (error) {
-        alert(error);
+        _this.error = error.message;
       })["finally"](function (x) {
         _this.loading = false;
       });
@@ -39212,6 +39228,27 @@ var render = function() {
                                                 _c(
                                                   "v-container",
                                                   [
+                                                    _vm.error
+                                                      ? _c(
+                                                          "v-alert",
+                                                          {
+                                                            attrs: {
+                                                              small: "",
+                                                              type: "error"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("span", [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm.error
+                                                                )
+                                                              )
+                                                            ])
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                    _vm._v(" "),
                                                     _c(
                                                       "v-row",
                                                       [
@@ -39539,6 +39576,27 @@ var render = function() {
                                                 _c(
                                                   "v-container",
                                                   [
+                                                    _vm.error
+                                                      ? _c(
+                                                          "v-alert",
+                                                          {
+                                                            attrs: {
+                                                              small: "",
+                                                              type: "error"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("span", [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm.error
+                                                                )
+                                                              )
+                                                            ])
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                    _vm._v(" "),
                                                     _c(
                                                       "v-row",
                                                       [
@@ -40386,6 +40444,25 @@ var render = function() {
                                             _c(
                                               "v-container",
                                               [
+                                                _vm.error
+                                                  ? _c(
+                                                      "v-alert",
+                                                      {
+                                                        attrs: {
+                                                          small: "",
+                                                          type: "error"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("span", [
+                                                          _vm._v(
+                                                            _vm._s(_vm.error)
+                                                          )
+                                                        ])
+                                                      ]
+                                                    )
+                                                  : _vm._e(),
+                                                _vm._v(" "),
                                                 _c(
                                                   "v-row",
                                                   [
@@ -40740,6 +40817,14 @@ var render = function() {
                           _c(
                             "v-card-text",
                             [
+                              _vm.error
+                                ? _c(
+                                    "v-alert",
+                                    { attrs: { small: "", type: "error" } },
+                                    [_c("span", [_vm._v(_vm._s(_vm.error))])]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
                               _c("v-text-field", {
                                 attrs: {
                                   label: "Username",
@@ -93532,15 +93617,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*******************************************************!*\
   !*** ./resources/js/components/BarangayComponent.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BarangayComponent_vue_vue_type_template_id_5985f683___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BarangayComponent.vue?vue&type=template&id=5985f683& */ "./resources/js/components/BarangayComponent.vue?vue&type=template&id=5985f683&");
 /* harmony import */ var _BarangayComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BarangayComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/BarangayComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _BarangayComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _BarangayComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -93570,7 +93654,7 @@ component.options.__file = "resources/js/components/BarangayComponent.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/BarangayComponent.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

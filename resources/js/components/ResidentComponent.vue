@@ -25,6 +25,9 @@
 
                                         <v-card-text>
                                             <v-container>
+                                                <v-alert small type="error" v-if="error">
+                                                    <span>{{ error }}</span>
+                                                </v-alert>
                                                 <v-row>
                                                     <v-col cols="6"><v-text-field v-model="editedResident.username" label="Username"></v-text-field></v-col>
                                                     <v-col cols="6"><v-select :items="barangay_names" v-model="editedResident.barangay" label="Barangay"></v-select></v-col>
@@ -61,6 +64,7 @@
 export default {
     data() {
         return {
+            error: null,
             Administrator: false,
             dialog: false, loading: false,
             editedIndex: -1,
@@ -160,7 +164,7 @@ export default {
                     Object.assign(this.residents[this.editedIndex], this.editedResident)
                     this.cancel()
                 })
-                .catch( error => { alert(error)})
+                .catch( error => { this.error = error.message})
                 .finally( x => { this.loading = false})
             } else {
                 // Create new item
@@ -175,7 +179,7 @@ export default {
                     this.residents.push(this.editedResident)
                     this.cancel()
                 })
-                .catch( error => { alert(error)})
+                .catch( error => { this.error = error.message})
                 .finally( x => { this.loading = false})
             }
         }

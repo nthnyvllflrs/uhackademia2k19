@@ -25,6 +25,9 @@
 
                                         <v-card-text>
                                             <v-container>
+                                                <v-alert small type="error" v-if="error">
+                                                    <span>{{ error }}</span>
+                                                </v-alert>
                                                 <v-row>
                                                     <v-col cols="12"><v-text-field v-model="editedBarangay.username" label="Username"></v-text-field></v-col>
                                                     <v-col cols="12"><v-text-field v-model="editedBarangay.name" label="Name"></v-text-field></v-col>
@@ -56,6 +59,7 @@
 export default {
     data() {
         return {
+            error: null,
             userRole: null,
             dialog: false, loading: false,
             editedIndex: -1,
@@ -131,7 +135,7 @@ export default {
                     Object.assign(this.barangays[this.editedIndex], this.editedBarangay)
                     this.cancel()
                 })
-                .catch( error => { alert(error)})
+                .catch( error => { this.error = error.message})
                 .finally( x => { this.loading = false})
             } else {
                 // Create new item
@@ -143,7 +147,7 @@ export default {
                     this.barangays.push(this.editedBarangay)
                     this.cancel()
                 })
-                .catch( error => { alert(error)})
+                .catch( error => { this.error = error.message})
                 .finally( x => { this.loading = false})
             }
         }

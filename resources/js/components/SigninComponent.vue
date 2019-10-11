@@ -6,6 +6,9 @@
                     <v-col cols="12" sm="8" md="4">
                         <v-card class="elevation-1">
                             <v-card-text>
+                                <v-alert small type="error" v-if="error">
+                                    <span>{{ error }}</span>
+                                </v-alert>
                                 <v-text-field v-model="username" label="Username" name="username" id="username" prepend-icon="fa-user" type="text"></v-text-field>
                                 <v-text-field v-model="password" label="Password" id="password"  name="password" prepend-icon="fa-lock" type="password"></v-text-field>
                             </v-card-text>
@@ -28,6 +31,7 @@ export default {
             loading: false,
             username: null,
             password: null,
+            error: null,
         }
     },
     methods: {
@@ -45,7 +49,7 @@ export default {
                 // Redirect user
                 this.$router.push('reports')
             })
-            .catch( error => { alert(error)})
+            .catch( error => { this.error = error.message})
             .finally( x => {this.loading = false})
         }
     }
