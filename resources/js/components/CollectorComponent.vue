@@ -97,7 +97,6 @@ export default {
             axios.get('api/collectors')
             .then( response => {
                 this.collectors = response.data.collectors
-                console.log(response.data)
             })
             .catch( error => { alert(error)})
             .finally( x => { this.loading = false})

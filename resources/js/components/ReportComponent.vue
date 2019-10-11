@@ -3,7 +3,7 @@
         <v-container fluid>
             <v-row justify="center" align="center">
                 <v-col class="text-center">
-                    <v-data-table :loading=loading loading-text="Loading... Please wait" :headers="headers" :items="items" class="elevation-1">
+                    <v-data-table :loading=loading loading-text="Loading... Please wait" :headers="headers" :items="reports" class="elevation-1">
                         <template v-slot:top>
                             <v-toolbar flat color="white">
                                 <v-toolbar-title class="title">Reports</v-toolbar-title>
@@ -30,7 +30,7 @@ export default {
                 {text: 'Barangay', value: 'barangay'},
                 {text: 'Date and Time', value: 'date_time'},
             ],
-            items: [],
+            reports: [],
         }
     },
     mounted() {
@@ -41,10 +41,10 @@ export default {
         retrieveReportList() {
             axios.get('/api/reports/')
             .then( response => {
-                console.log(response.data, 213)
+                this.reports = response.data.reports
             })
             .catch( error => {
-                console.log(error)
+                alert(error)
             })
         },
     },

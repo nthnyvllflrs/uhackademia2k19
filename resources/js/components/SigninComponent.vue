@@ -43,7 +43,7 @@ export default {
                 localStorage.setItem('user-token', token)
                 localStorage.setItem('user-type', user_type)
                 // Redirect user
-                this.$router.push('requests')
+                this.$router.push('reports')
             })
             .catch( error => { alert(error)})
             .finally( x => {this.loading = false})

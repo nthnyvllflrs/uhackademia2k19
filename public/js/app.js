@@ -2360,7 +2360,6 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       axios.get('api/collectors').then(function (response) {
         _this.collectors = response.data.collectors;
-        console.log(response.data);
       })["catch"](function (error) {
         alert(error);
       })["finally"](function (x) {
@@ -2549,17 +2548,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2567,16 +2555,14 @@ __webpack_require__.r(__webpack_exports__);
       Administrator: false
     };
   },
-  mounted: function mounted() {
-    this.Administrator = sessionStorage.getItem('user-type') == 1 ? true : this.Administrator;
-  },
+  mounted: function mounted() {},
   methods: {
     logout: function logout() {
       var _this = this;
 
       axios.post('api/logout').then(function (response) {
-        sessionStorage.removeItem('user-token');
-        sessionStorage.removeItem('user-type');
+        localStorage.removeItem('user-token');
+        localStorage.removeItem('user-type');
 
         _this.$router.push('/');
       })["catch"](function (error) {
@@ -2677,7 +2663,7 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Date and Time',
         value: 'date_time'
       }],
-      items: []
+      reports: []
     };
   },
   mounted: function mounted() {
@@ -2685,10 +2671,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     retrieveReportList: function retrieveReportList() {
+      var _this = this;
+
       axios.get('/api/reports/').then(function (response) {
-        console.log(response.data, 213);
+        _this.reports = response.data.reports;
       })["catch"](function (error) {
-        console.log(error);
+        alert(error);
       });
     }
   }
@@ -3007,7 +2995,7 @@ __webpack_require__.r(__webpack_exports__);
         localStorage.setItem('user-token', token);
         localStorage.setItem('user-type', user_type); // Redirect user
 
-        _this.$router.push('requests');
+        _this.$router.push('reports');
       })["catch"](function (error) {
         alert(error);
       })["finally"](function (x) {
@@ -39878,43 +39866,6 @@ var render = function() {
                           on: {
                             click: function($event) {
                               $event.stopPropagation()
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "v-list-item-avatar",
-                            [_c("v-icon", [_vm._v("fa-cog")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item-content",
-                            [
-                              _c(
-                                "v-list-item-title",
-                                { staticClass: "subtitle-2 font-weight-bold" },
-                                [_vm._v("Logs")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-list-item-subtitle",
-                                { staticClass: "caption" },
-                                [_vm._v("Show system logs")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item",
-                        {
-                          on: {
-                            click: function($event) {
-                              $event.stopPropagation()
                               return _vm.logout($event)
                             }
                           }
@@ -40181,7 +40132,7 @@ var render = function() {
                       loading: _vm.loading,
                       "loading-text": "Loading... Please wait",
                       headers: _vm.headers,
-                      items: _vm.items
+                      items: _vm.reports
                     },
                     scopedSlots: _vm._u([
                       {
@@ -93389,10 +93340,10 @@ var routes = [{
   name: 'Landing',
   component: _components_LandingComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   // beforeEnter(to, from, next) {
-  //     if(!sessionStorage.getItem('user-token')){
+  //     if(!localStorage.getItem('user-token')){
   //         next()
   //     } else {
-  //         next({name: 'requests'})
+  //         next({name: 'reports'})
   //     }
   // },
   children: [{
@@ -93407,10 +93358,11 @@ var routes = [{
   name: 'dashboard',
   component: _components_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   // beforeEnter(to, from, next) {
-  //     if(!sessionStorage.getItem('user-token')){
-  //         next()
+  //     if(localStorage.getItem('user-token')){
+  //         if(to.name == 'dashboard') {next({name: 'reports'})}
+  //         else {next()}
   //     } else {
-  //         next({name: 'requests'})
+  //         next({name: 'signin'})
   //     }
   // },
   children: [{
@@ -93458,14 +93410,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
 var app = new Vue({
   vuetify: vuetify,
   router: router
-}).$mount('#app'); // require('./bootstrap');
-// import vuetify from './plugins/vuetify'
-// import router from './plugins/router'
-// window.Vue = require('vue');
-// const app = new Vue({
-//     vuetify, router,
-//     el: '#app',
-// });
+}).$mount('#app');
 
 /***/ }),
 

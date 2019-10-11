@@ -28,10 +28,10 @@ const routes = [
         name: 'Landing', 
         component: Landing,
         // beforeEnter(to, from, next) {
-        //     if(!sessionStorage.getItem('user-token')){
+        //     if(!localStorage.getItem('user-token')){
         //         next()
         //     } else {
-        //         next({name: 'requests'})
+        //         next({name: 'reports'})
         //     }
         // },
         children: [
@@ -43,10 +43,11 @@ const routes = [
         name: 'dashboard', 
         component: Dashboard,
         // beforeEnter(to, from, next) {
-        //     if(!sessionStorage.getItem('user-token')){
-        //         next()
+        //     if(localStorage.getItem('user-token')){
+        //         if(to.name == 'dashboard') {next({name: 'reports'})}
+        //         else {next()}
         //     } else {
-        //         next({name: 'requests'})
+        //         next({name: 'signin'})
         //     }
         // },
         children: [
@@ -74,15 +75,3 @@ const router = new VueRouter({mode: 'history', routes})
 const app = new Vue({
     vuetify, router,
 }).$mount('#app')
-
-// require('./bootstrap');
-
-// import vuetify from './plugins/vuetify'
-// import router from './plugins/router'
-
-// window.Vue = require('vue');
-
-// const app = new Vue({
-//     vuetify, router,
-//     el: '#app',
-// });

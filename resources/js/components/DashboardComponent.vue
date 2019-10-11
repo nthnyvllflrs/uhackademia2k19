@@ -56,17 +56,6 @@
             </v-list>
             <template v-slot:append>
                 <v-list>
-                    <v-list-item @click.stop="">
-                        <v-list-item-avatar>
-                            <v-icon>fa-cog</v-icon>
-                        </v-list-item-avatar>
-                        <v-list-item-content>
-                            <v-list-item-title
-                                class="subtitle-2 font-weight-bold">Logs</v-list-item-title>
-                            <v-list-item-subtitle
-                                class="caption">Show system logs</v-list-item-subtitle>
-                        </v-list-item-content>
-                    </v-list-item>
                     <v-list-item @click.stop="logout">
                         <v-list-item-avatar>
                             <v-icon>fa-sign-out-alt</v-icon>
@@ -95,14 +84,14 @@ export default {
         }
     },
     mounted() {
-        this.Administrator = sessionStorage.getItem('user-type') == 1 ? true : this.Administrator
+        
     },
     methods: {
         logout() {
             axios.post('api/logout')
             .then( response => {
-                sessionStorage.removeItem('user-token')
-                sessionStorage.removeItem('user-type')
+                localStorage.removeItem('user-token')
+                localStorage.removeItem('user-type')
                 this.$router.push('/')
             })
             .catch( error => { alert(error)})
