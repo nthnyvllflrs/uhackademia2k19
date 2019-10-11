@@ -1,0 +1,86 @@
+<script>
+export default {
+  name:"MyGoogleApi",
+  mounted(){
+    const element = document.getElementById('myMap');
+    const options = {
+      zoom: 14,
+      center: new google.maps.LatLng(6.916285, 122.086563),
+      mapTypeId: 'roadmap',
+      styles: [
+
+      ]
+    }
+    const map = new google.maps.Map(element, options);
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(map, event.latLng);
+    });
+
+    function placeMarker(map, location) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+
+      var lat= location.lat()
+      var long = location.lng()
+      function calculateLocation(lat,long){
+      navigator.geolocation.getCurrentPosition(
+          function(result){
+              var myLat = lat
+              var myLng = long
+
+              url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
+              url = url + myLat + ',' + myLng + '&key=AIzaSyBLvHFeixDacvhmdX-L_0EoG4of6n0pM1A'
+
+              $.ajax({
+                  url: url,
+                  success: function(data){
+                      var myAddress = data.results[0].formatted_address
+                      data = {
+                          'csrfmiddlewaretoken': getCookie('csrftoken'),
+                          'latitude': myLat,
+                          'longitude': myLng,
+                          'address': myAddress,
+                      }
+
+                      $.ajax({
+                          url: urlLocation,
+                          type: 'POST',
+                          data: data,
+                          success: function(data){
+                            console.log(data.updated)
+                          },
+                          error: function(e){
+                            console.log(e.message)
+                          }
+                      })
+                  }
+              })
+          },
+          function(error){
+              console.log(error.code)
+          },
+          {
+              enableHighAccuracy: true,
+              setTimeout: 3000,
+          }
+      )
+    }
+      // var infowindow = new google.maps.InfoWindow({
+      //   content: 'Latitude: ' + location.lat() +
+      //            '<br>Longitude: ' + location.lng()
+      // });
+      // infowindow.open(map,marker);
+    }
+  },
+  method(){
+  }
+}
+</script>
+<style scoped>
+  #myMap {
+    width: 1000px;
+    height: 1000px;
+  }
+</style>

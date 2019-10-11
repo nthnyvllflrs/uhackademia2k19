@@ -2211,6 +2211,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GoogleMap",
   data: function data() {
@@ -2218,36 +2222,46 @@ __webpack_require__.r(__webpack_exports__);
       // default to Montreal to keep it simple
       // change this to whatever makes sense
       center: {
-        lat: 45.508,
-        lng: -73.587
+        lat: 6.916285,
+        lng: 122.086563
       },
-      markers: [],
-      places: [],
-      currentPlace: null
+      // markers: [],
+      // places: [],
+      // currentPlace: null,
+      marker: null
     };
   },
   mounted: function mounted() {
-    this.geolocate();
+    // this.geolocate();
+    this.$refs.mapRef.$mapPromise.then(function (map) {
+      map.panTo({
+        lat: 6.916285,
+        lng: 122.086563
+      });
+    });
   },
   methods: {
     // receives a place object via the autocomplete component
-    setPlace: function setPlace(place) {
-      this.currentPlace = place;
-    },
-    addMarker: function addMarker() {
-      if (this.currentPlace) {
-        var marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
-        };
-        this.markers.push({
-          position: marker
-        });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
-      }
-    },
+    // setPlace(place) {
+    //   this.currentPlace = place;
+    // },
+    // addMarker() {
+    //   if (this.currentPlace) {
+    //     const marker = {
+    //       lat: this.currentPlace.geometry.location.lat(),
+    //       lng: this.currentPlace.geometry.location.lng()
+    //     };
+    //     this.markers.push({ position: marker });
+    //     this.places.push(this.currentPlace);
+    //     this.center = marker;
+    //     this.currentPlace = null;
+    //     var infowindow = new google.maps.InfoWindow({
+    //     content: 'Latitude: ' + location.lat() +
+    //              '<br>Longitude: ' + location.lng()
+    //     });
+    //     infowindow.open(map,marker);
+    //   }
+    // },
     geolocate: function geolocate() {
       var _this = this;
 
@@ -2257,6 +2271,12 @@ __webpack_require__.r(__webpack_exports__);
           lng: position.coords.longitude
         };
       });
+    },
+    clicked: function clicked(e) {
+      this.marker = {
+        latLng: e.latLng
+      };
+      console.log(this.marker.latLng);
     }
   }
 });
@@ -39097,41 +39117,19 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", [
-        _c("h2", [_vm._v("Search and add a pin")]),
-        _vm._v(" "),
-        _c(
-          "label",
-          [
-            _c("gmap-autocomplete", { on: { place_changed: _vm.setPlace } }),
-            _vm._v(" "),
-            _c("button", { on: { click: _vm.addMarker } }, [_vm._v("Add")])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("br")
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
       _c(
         "gmap-map",
         {
-          staticStyle: { width: "100%", height: "400px" },
-          attrs: { center: _vm.center, zoom: 12 }
+          ref: "mapRef",
+          staticStyle: { width: "100%", height: "80vh" },
+          attrs: { center: _vm.center, zoom: 15 },
+          on: { click: _vm.clicked }
         },
-        _vm._l(_vm.markers, function(m, index) {
-          return _c("gmap-marker", {
-            key: index,
-            attrs: { position: m.position },
-            on: {
-              click: function($event) {
-                _vm.center = m.position
-              }
-            }
-          })
-        }),
+        [
+          _vm.marker
+            ? _c("GmapMarker", { attrs: { position: _vm.marker.latLng } })
+            : _vm._e()
+        ],
         1
       )
     ],
