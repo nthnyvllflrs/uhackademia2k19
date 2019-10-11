@@ -7,6 +7,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -30,5 +31,16 @@ class User extends Authenticatable
 
     public function information() {
         return $this->hasOne('App\UserInformation');
+    }
+
+    /**
+     * Automatically creates hash for the user password.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

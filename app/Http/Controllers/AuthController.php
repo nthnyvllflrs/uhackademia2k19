@@ -32,7 +32,7 @@ class AuthController extends Controller
         }
 
         $user_type_id = UserType::where('name', $request->type)->first()->id;
-        $request['password'] = Hash::make($request['password']);
+        // $request['password'] = Hash::make($request['password']);
 
         $user = User::create(array_merge($request->toArray(), ['user_type_id' => $user_type_id]));
         $user_information = UserInformation::create(array_merge($request->toArray(), ['user_id' => $user->id]));
