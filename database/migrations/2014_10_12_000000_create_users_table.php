@@ -17,7 +17,10 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('username')->unique();
             $table->string('password');
+            $table->bigInteger('user_type_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('cascade');
         });
     }
 
