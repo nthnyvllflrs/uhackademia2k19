@@ -24,9 +24,11 @@ Route::middleware('auth:api')->group( function() {
 
 Route::get('/barangays', 'BarangayController@index');
 Route::post('/barangays', 'BarangayController@store');
+Route::get('/barangays/names', 'BarangayController@barangay_names');
 Route::get('/barangays/{barangay}', 'BarangayController@show');
 Route::put('/barangays/{barangay}', 'BarangayController@update');
 Route::delete('/barangays/{barangay}', 'BarangayController@destroy');
+
 
 Route::get('/residents', 'ResidentController@index');
 Route::post('/residents', 'ResidentController@store');

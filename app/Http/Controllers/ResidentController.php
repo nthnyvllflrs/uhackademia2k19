@@ -13,7 +13,17 @@ use App\Barangay;
 
 class ResidentController extends Controller {
     public function index() {
-        return response(['resident' => Resident::with(['user', 'barangay'])->get()]);
+        $data = [];
+        foreach(Resident::all() as $resident) {
+            $data[] = [
+                'id' => $resident->id,
+                'username' => $resident->user->username,
+                'fullname' => $resident->fullname,
+                'barangay' => $resident->barangay->name,
+                'phone_number' => $resident->phone_number   ,
+            ];
+        }
+        return response(['residents' => $data]);
     }
 
     public function store(Request $request) {

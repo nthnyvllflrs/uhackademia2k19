@@ -1,21 +1,24 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Landing Component</div>
+    <div>
+        <v-app-bar app>
+            <v-toolbar-title>Limpieza</v-toolbar-title>
+            <div class="flex-grow-1"></div>
+            <v-toolbar-items>
+                <v-btn text to="/signin">Signin</v-btn>
+                <!-- <v-btn text to="/signup">Signup</v-btn> -->
+            </v-toolbar-items>
+        </v-app-bar>
 
-                    <div class="card-body">
-                        I'm an Landing Component.
-                    </div>
-                </div>
-            </div>
-        </div>
+        <router-view name="landing"></router-view>
     </div>
 </template>
 
+
 <script>
-    export default {
-        
+export default {
+    data() {
+        return {
+        }
     }
+}
 </script>

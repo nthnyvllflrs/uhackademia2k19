@@ -12,7 +12,15 @@ use App\Barangay;
 
 class BarangayController extends Controller {
     public function index() {
-        return response(['barangays' => Barangay::with(['user'])->get()]);
+        $barangays = [];
+        foreach(Barangay::all() as $barangay) {
+            $barangays[] = [
+                'id' => $barangay->id,
+                'username' => $barangay->user->username,
+                'name' => $barangay->name,
+            ];
+        }
+        return response(['barangays' => $barangays]);
     }
 
     public function store(Request $request) {
@@ -50,5 +58,13 @@ class BarangayController extends Controller {
         $barangay->user->delete();
         $barangay->delete();
         return response(null, 204);
+    }
+
+    public function barangay_names(Request $request) {
+        $data = [];
+        foreach(Barangay::all() as $barangay) {
+            $data[] = $barangay->name;
+        };
+        return response(['barangay_names' => $data], 200);
     }
 }
