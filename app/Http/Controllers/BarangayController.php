@@ -12,7 +12,6 @@ use App\Barangay;
 
 class BarangayController extends Controller {
     public function index() {
-        $barangays = [];
         foreach(Barangay::all() as $barangay) {
             $barangays[] = [
                 'id' => $barangay->id,
@@ -61,10 +60,13 @@ class BarangayController extends Controller {
     }
 
     public function barangay_names(Request $request) {
-        $data = [];
-        foreach(Barangay::all() as $barangay) {
-            $data[] = $barangay->name;
-        };
+        if($request->user()->role == 'Administrator') {
+            foreach(Barangay::all() as $barangay) {
+                $data[] = $barangay->name;
+            };
+        } else {
+            $data[] = $request->user()->barangay->name;
+        }
         return response(['barangay_names' => $data], 200);
     }
 }

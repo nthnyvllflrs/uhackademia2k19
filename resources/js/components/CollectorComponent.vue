@@ -8,7 +8,7 @@
                             <v-toolbar flat color="white">
                                 <v-toolbar-title class="title">Collectors</v-toolbar-title>
                                 <div class="flex-grow-1"></div>
-                                <v-dialog v-model="dialog" max-width="500px">
+                                <v-dialog v-model="dialog" max-width="500px" v-if="userRole == 'Administrator'">
                                     <template v-slot:activator="{ on }">
                                         <v-btn small color="success" v-on="on">
                                             <v-icon small left>fa-plus</v-icon> Add Collector
@@ -61,6 +61,7 @@
 export default {
     data() {
         return {
+            userRole: null, 
             dialog: false, loading: false,
             editedIndex: -1,
             defaultCollector: { username: null, password: "123456789", name: null, licensed_number: null, plate_number: null, address: null, latitude: null, longitude: null,},
@@ -71,13 +72,15 @@ export default {
                 {text: 'Name', value: 'name'},
                 {text: 'License Number', value: 'license_number'},
                 {text: 'Plate Number', value: 'plate_number'},
-                {text: 'Actions', value: 'action', sortable: false },
+                // {text: 'Actions', value: 'action', sortable: false },
             ],
             collectors: [],
         }
     },
     mounted() {
         this.retrieveCollectorList()
+        this.userRole = localStorage.getItem('user-role')
+        if(this.userRole == 'Administrator') { this.headers.push({text: 'Actions', value: 'action', sortable: false },)}
     },
     
     computed: {

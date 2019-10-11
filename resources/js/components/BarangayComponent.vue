@@ -8,7 +8,7 @@
                             <v-toolbar flat color="white">
                                 <v-toolbar-title class="title">Barangays</v-toolbar-title>
                                 <div class="flex-grow-1"></div>
-                                <v-dialog v-model="dialog" max-width="500px">
+                                <v-dialog v-model="dialog" max-width="500px" v-if="userRole == 'Administrator'">
                                     <template v-slot:activator="{ on }">
                                         <v-btn small color="success" v-on="on">
                                             <v-icon small left>fa-plus</v-icon> Add Barangay
@@ -56,6 +56,7 @@
 export default {
     data() {
         return {
+            userRole: null,
             dialog: false, loading: false,
             editedIndex: -1,
             defaultBarangay: { username: null, password: "123456789", name: null},
@@ -64,13 +65,15 @@ export default {
                 {text: 'ID', value: 'id',},
                 {text: 'Username', value: 'username',},
                 {text: 'Name', value: 'name'},
-                {text: 'Actions', value: 'action', sortable: false },
+                // {text: 'Actions', value: 'action', sortable: false },
             ],
             barangays: [],
         }
     },
     mounted() {
         this.retrieveItemList()
+        this.userRole = localStorage.getItem('user-role')
+        if(this.userRole == 'Administrator') { this.headers.push({text: 'Actions', value: 'action', sortable: false },)}
     },
     
     computed: {

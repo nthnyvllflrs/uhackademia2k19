@@ -25,7 +25,7 @@ class User extends Authenticatable
     ];
 
     public function barangay() {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\Barangay');
     }
 
     public function resident() {
@@ -33,6 +33,6 @@ class User extends Authenticatable
     }
 
     public function collector() {
-        return $this->hasOne('App\Resident');
+        return $this->hasOne('App\Collector');
     }
 }

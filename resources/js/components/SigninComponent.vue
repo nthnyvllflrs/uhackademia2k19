@@ -41,7 +41,7 @@ export default {
                 var user_type = response.data.user_type
                 // Create a local storage item
                 localStorage.setItem('user-token', token)
-                localStorage.setItem('user-type', user_type)
+                localStorage.setItem('user-role', user_type)
                 // Redirect user
                 this.$router.push('reports')
             })

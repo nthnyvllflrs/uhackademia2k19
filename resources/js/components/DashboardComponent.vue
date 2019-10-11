@@ -84,14 +84,14 @@ export default {
         }
     },
     mounted() {
-        
+        console.log(localStorage.getItem('user-role'))
     },
     methods: {
         logout() {
             axios.post('api/logout')
             .then( response => {
                 localStorage.removeItem('user-token')
-                localStorage.removeItem('user-type')
+                localStorage.removeItem('user-role')
                 this.$router.push('/')
             })
             .catch( error => { alert(error)})

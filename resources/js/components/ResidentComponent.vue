@@ -82,6 +82,7 @@ export default {
     mounted() {
         this.retrieveResidentList()
         this.retrieveBarangayList()
+        console.log(localStorage.getItem('user-role'))
     },
     
     computed: {

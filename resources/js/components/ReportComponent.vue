@@ -35,6 +35,7 @@ export default {
     },
     mounted() {
         this.retrieveReportList()
+        console.log(localStorage.getItem('user-role'))
     },
     
     methods: {
@@ -42,6 +43,7 @@ export default {
             axios.get('/api/reports/')
             .then( response => {
                 this.reports = response.data.reports
+                console.log(this.reports)
             })
             .catch( error => {
                 alert(error)

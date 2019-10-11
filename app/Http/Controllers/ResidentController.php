@@ -12,15 +12,18 @@ use App\Resident;
 use App\Barangay;
 
 class ResidentController extends Controller {
-    public function index() {
+    public function index(Request $request) {
+        if($request->user()->role == 'Administrator') {
+            $resident_list = Resident::all();
+        } else if($request->user()->role == 'Barangay') {
+            $barangay = $request->user()->barangay;
+            $resident_list = Resident::where('barangay_id', $barangay->id)->get();
+        }
         $data = [];
-        foreach(Resident::all() as $resident) {
+        foreach($resident_list as $resident) {
             $data[] = [
-                'id' => $resident->id,
-                'username' => $resident->user->username,
-                'fullname' => $resident->fullname,
-                'barangay' => $resident->barangay->name,
-                'phone_number' => $resident->phone_number   ,
+                'id' => $resident->id, 'username' => $resident->user->username,
+                'fullname' => $resident->fullname, 'barangay' => $resident->barangay->name, 'phone_number' => $resident->phone_number,
             ];
         }
         return response(['residents' => $data]);
