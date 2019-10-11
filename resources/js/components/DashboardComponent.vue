@@ -42,7 +42,7 @@
                             class="caption">Display list of Residents</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item to="/">
+                <v-list-item to="/collectors">
                     <v-list-item-avatar>
                         <v-icon>fa-list</v-icon>
                     </v-list-item-avatar>
@@ -99,7 +99,7 @@ export default {
     },
     methods: {
         logout() {
-            axios.get('api/logout')
+            axios.post('api/logout')
             .then( response => {
                 sessionStorage.removeItem('user-token')
                 sessionStorage.removeItem('user-type')

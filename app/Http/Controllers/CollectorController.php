@@ -12,7 +12,17 @@ use App\Collector;
 
 class CollectorController extends Controller {
     public function index() {
-        return response(['collectors' => Collector::with(['user'])->get()]);
+        $data = [];
+        foreach(Collector::all() as $collector) {
+            $data[] = [
+                'id' => $collector->id,
+                'username' => $collector->user->username,
+                'name' => $collector->name,
+                'license_number' => $collector->license_number,
+                'plate_number' => $collector->plate_number,
+            ];
+        }
+        return response(['collectors' => $data]);
     }
 
     public function store(Request $request) {

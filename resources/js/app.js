@@ -18,6 +18,7 @@ import Dashboard from './components/DashboardComponent.vue'
 import Report from './components/ReportComponent.vue'
 import Resident from './components/ResidentComponent.vue'
 import Barangay from './components/BarangayComponent.vue'
+import Collector from './components/CollectorComponent.vue'
 
 
 Vue.use(VueRouter)
@@ -52,6 +53,7 @@ const routes = [
             { path: '/reports', name: 'reports', components: {dashboard: Report}},
             { path: '/residents', name: 'residents', components: {dashboard: Resident}},
             { path: '/barangays', name: 'barangays', components: {dashboard: Barangay}},
+            { path: '/collectors', name: 'collectors', components: {dashboard: Collector}},
         ]
     },
 ]

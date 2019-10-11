@@ -2223,6 +2223,246 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CollectorComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      dialog: false,
+      loading: false,
+      editedIndex: -1,
+      defaultCollector: {
+        username: null,
+        password: "123456789",
+        name: null,
+        licensed_number: null,
+        plate_number: null,
+        address: null,
+        latitude: null,
+        longitude: null
+      },
+      editedCollector: {
+        username: null,
+        password: "123456789",
+        name: null,
+        licensed_number: null,
+        plate_number: null,
+        address: null,
+        latitude: null,
+        longitude: null
+      },
+      headers: [{
+        text: 'ID',
+        value: 'id'
+      }, {
+        text: 'Username',
+        value: 'username'
+      }, {
+        text: 'Name',
+        value: 'name'
+      }, {
+        text: 'License Number',
+        value: 'license_number'
+      }, {
+        text: 'Plate Number',
+        value: 'plate_number'
+      }, {
+        text: 'Actions',
+        value: 'action',
+        sortable: false
+      }],
+      collectors: []
+    };
+  },
+  mounted: function mounted() {
+    this.retrieveCollectorList();
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Collector' : 'Edit Collector';
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.cancel();
+    }
+  },
+  methods: {
+    retrieveCollectorList: function retrieveCollectorList() {
+      var _this = this;
+
+      this.loading = true;
+      axios.get('api/collectors').then(function (response) {
+        _this.collectors = response.data.collectors;
+        console.log(response.data);
+      })["catch"](function (error) {
+        alert(error);
+      })["finally"](function (x) {
+        _this.loading = false;
+      });
+    },
+    editCollector: function editCollector(item) {
+      var _this2 = this;
+
+      axios.get('api/collectors/' + item.id).then(function (response) {
+        _this2.editedIndex = _this2.collectors.indexOf(item);
+        _this2.editedCollector = Object.assign({}, item);
+        _this2.editedCollector.address = response.data.collector.address;
+        _this2.editedCollector.latitude = response.data.collector.latitude;
+        _this2.editedCollector.longitude = response.data.collector.longitude;
+        _this2.dialog = true;
+      })["catch"](function (error) {
+        alert(error);
+      });
+    },
+    deleteCollector: function deleteCollector(item) {
+      var _this3 = this;
+
+      var itemDeletion = confirm('Are you sure you want to delete this item?');
+
+      if (itemDeletion == true) {
+        axios["delete"]('api/collectors/' + item.id).then(function (response) {
+          var index = _this3.collectors.indexOf(item);
+
+          _this3.collectors.splice(index, 1);
+        })["catch"](function (error) {
+          alert(error);
+        });
+      }
+    },
+    cancel: function cancel() {
+      var _this4 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this4.editedCollector = Object.assign({}, _this4.defaultCollector);
+        _this4.editedIndex = -1;
+      }, 500);
+    },
+    saveCollector: function saveCollector() {
+      var _this5 = this;
+
+      this.loading = true;
+
+      if (this.editedIndex > -1) {
+        // Update item
+        axios.put('api/collectors/' + this.editedCollector.id, {
+          username: this.editedCollector.username,
+          password: this.editedCollector.password,
+          password_confirmation: this.editedCollector.password,
+          role: 'Collector',
+          name: this.editedCollector.name,
+          license_number: this.editedCollector.license_number,
+          plate_number: this.editedCollector.plate_number,
+          address: this.editedCollector.address,
+          latitude: this.editedCollector.latitude,
+          longitude: this.editedCollector.longitude
+        }).then(function (response) {
+          Object.assign(_this5.collectors[_this5.editedIndex], _this5.editedCollector);
+
+          _this5.cancel();
+        })["catch"](function (error) {
+          alert(error);
+        })["finally"](function (x) {
+          _this5.loading = false;
+        });
+      } else {
+        // Create new item
+        axios.post('api/collectors', {
+          username: this.editedCollector.username,
+          password: this.editedCollector.password,
+          password_confirmation: this.editedCollector.password,
+          role: 'Collector',
+          name: this.editedCollector.name,
+          license_number: this.editedCollector.license_number,
+          plate_number: this.editedCollector.plate_number,
+          address: this.editedCollector.address,
+          latitude: this.editedCollector.latitude,
+          longitude: this.editedCollector.longitude
+        }).then(function (response) {
+          _this5.editedCollector.id = response.data.collector.id;
+
+          _this5.collectors.push(_this5.editedCollector);
+
+          _this5.cancel();
+        })["catch"](function (error) {
+          alert(error);
+        })["finally"](function (x) {
+          _this5.loading = false;
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js& ***!
@@ -2334,7 +2574,7 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var _this = this;
 
-      axios.get('api/logout').then(function (response) {
+      axios.post('api/logout').then(function (response) {
         sessionStorage.removeItem('user-token');
         sessionStorage.removeItem('user-type');
 
@@ -39124,6 +39364,466 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorComponent.vue?vue&type=template&id=c63d9eca&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CollectorComponent.vue?vue&type=template&id=c63d9eca& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        { attrs: { fluid: "" } },
+        [
+          _c(
+            "v-row",
+            { attrs: { justify: "center", align: "center" } },
+            [
+              _c(
+                "v-col",
+                { staticClass: "text-center" },
+                [
+                  _c("v-data-table", {
+                    staticClass: "elevation-1",
+                    attrs: {
+                      loading: _vm.loading,
+                      "loading-text": "Loading... Please wait",
+                      headers: _vm.headers,
+                      items: _vm.collectors
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "top",
+                        fn: function() {
+                          return [
+                            _c(
+                              "v-toolbar",
+                              { attrs: { flat: "", color: "white" } },
+                              [
+                                _c(
+                                  "v-toolbar-title",
+                                  { staticClass: "title" },
+                                  [_vm._v("Collectors")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "flex-grow-1" }),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "500px" },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "activator",
+                                        fn: function(ref) {
+                                          var on = ref.on
+                                          return [
+                                            _c(
+                                              "v-btn",
+                                              _vm._g(
+                                                {
+                                                  attrs: {
+                                                    small: "",
+                                                    color: "success"
+                                                  }
+                                                },
+                                                on
+                                              ),
+                                              [
+                                                _c(
+                                                  "v-icon",
+                                                  {
+                                                    attrs: {
+                                                      small: "",
+                                                      left: ""
+                                                    }
+                                                  },
+                                                  [_vm._v("fa-plus")]
+                                                ),
+                                                _vm._v(
+                                                  " Add Collector\n                                    "
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ]),
+                                    model: {
+                                      value: _vm.dialog,
+                                      callback: function($$v) {
+                                        _vm.dialog = $$v
+                                      },
+                                      expression: "dialog"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-card",
+                                      [
+                                        _c(
+                                          "v-overlay",
+                                          { attrs: { value: _vm.loading } },
+                                          [
+                                            _c("v-progress-circular", {
+                                              attrs: {
+                                                size: 100,
+                                                width: 5,
+                                                color: "light-green accent-4",
+                                                indeterminate: ""
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c("v-card-title", [
+                                          _c(
+                                            "span",
+                                            { staticClass: "headline" },
+                                            [_vm._v(_vm._s(_vm.formTitle))]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card-text",
+                                          [
+                                            _c(
+                                              "v-container",
+                                              [
+                                                _c(
+                                                  "v-row",
+                                                  [
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Username"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .username,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "username",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.username"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Name"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .name,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "name",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.name"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label:
+                                                              "License Number"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .license_number,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "license_number",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.license_number"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label:
+                                                              "Plate Number"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .plate_number,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "plate_number",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.plate_number"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "12" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Address"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .address,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "address",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.address"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Latitude"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .latitude,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "latitude",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.latitude"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Longitude"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm
+                                                                .editedCollector
+                                                                .longitude,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedCollector,
+                                                                "longitude",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedCollector.longitude"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card-actions",
+                                          [
+                                            _c("div", {
+                                              staticClass: "flex-grow-1"
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "error" },
+                                                on: { click: _vm.cancel }
+                                              },
+                                              [_vm._v("Cancel")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "success" },
+                                                on: { click: _vm.saveCollector }
+                                              },
+                                              [_vm._v("Save")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        },
+                        proxy: true
+                      },
+                      {
+                        key: "item.action",
+                        fn: function(ref) {
+                          var item = ref.item
+                          return [
+                            _c(
+                              "v-icon",
+                              {
+                                staticClass: "mr-2",
+                                attrs: { small: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editCollector(item)
+                                  }
+                                }
+                              },
+                              [_vm._v("fa-edit")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-icon",
+                              {
+                                attrs: { small: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteCollector(item)
+                                  }
+                                }
+                              },
+                              [_vm._v("fa-trash-alt")]
+                            )
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4& ***!
@@ -39349,7 +40049,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-list-item",
-                { attrs: { to: "/" } },
+                { attrs: { to: "/collectors" } },
                 [
                   _c(
                     "v-list-item-avatar",
@@ -92660,6 +93360,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ReportComponent_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ReportComponent.vue */ "./resources/js/components/ReportComponent.vue");
 /* harmony import */ var _components_ResidentComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/ResidentComponent.vue */ "./resources/js/components/ResidentComponent.vue");
 /* harmony import */ var _components_BarangayComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/BarangayComponent.vue */ "./resources/js/components/BarangayComponent.vue");
+/* harmony import */ var _components_CollectorComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/CollectorComponent.vue */ "./resources/js/components/CollectorComponent.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -92673,6 +93374,7 @@ var opts = {
   }
 };
 var vuetify = new vuetify__WEBPACK_IMPORTED_MODULE_0___default.a(opts);
+
 
 
 
@@ -92728,6 +93430,12 @@ var routes = [{
     name: 'barangays',
     components: {
       dashboard: _components_BarangayComponent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+    }
+  }, {
+    path: '/collectors',
+    name: 'collectors',
+    components: {
+      dashboard: _components_CollectorComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
     }
   }]
 }]; // Add a request interceptor to axios
@@ -92870,6 +93578,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BarangayComponent_vue_vue_type_template_id_5985f683___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BarangayComponent_vue_vue_type_template_id_5985f683___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CollectorComponent.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/CollectorComponent.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CollectorComponent.vue?vue&type=template&id=c63d9eca& */ "./resources/js/components/CollectorComponent.vue?vue&type=template&id=c63d9eca&");
+/* harmony import */ var _CollectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CollectorComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CollectorComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CollectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CollectorComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CollectorComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/CollectorComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CollectorComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CollectorComponent.vue?vue&type=template&id=c63d9eca&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/CollectorComponent.vue?vue&type=template&id=c63d9eca& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CollectorComponent.vue?vue&type=template&id=c63d9eca& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorComponent.vue?vue&type=template&id=c63d9eca&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
