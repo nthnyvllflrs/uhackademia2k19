@@ -20,3 +20,22 @@ Route::middleware('auth:api')->group( function() {
     
     Route::get('/user/current-user', function (Request $request) { return $request->user();});
 });
+
+
+Route::get('/barangays', 'BarangayController@index');
+Route::post('/barangays', 'BarangayController@store');
+Route::get('/barangays/{barangay}', 'BarangayController@show');
+Route::put('/barangays/{barangay}', 'BarangayController@update');
+Route::delete('/barangays/{barangay}', 'BarangayController@destroy');
+
+Route::get('/residents', 'ResidentController@index');
+Route::post('/residents', 'ResidentController@store');
+Route::get('/residents/{resident}', 'ResidentController@show');
+Route::put('/residents/{resident}', 'ResidentController@update');
+Route::delete('/residents/{resident}', 'ResidentController@destroy');
+
+Route::get('/reports', 'ReportController@index');
+Route::post('/reports', 'ReportController@store');
+Route::get('/reports/{report}', 'ReportController@show');
+Route::put('/reports/{report}', 'ReportController@update');
+Route::delete('/reports/{report}', 'ReportController@destroy');
