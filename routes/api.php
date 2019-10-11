@@ -39,3 +39,9 @@ Route::post('/reports', 'ReportController@store');
 Route::get('/reports/{report}', 'ReportController@show');
 Route::put('/reports/{report}', 'ReportController@update');
 Route::delete('/reports/{report}', 'ReportController@destroy');
+
+Route::get('/collectors', 'CollectorController@index');
+Route::post('/collectors', 'CollectorController@store');
+Route::get('/collectors/{collector}', 'CollectorController@show');
+Route::put('/collectors/{collector}', 'CollectorController@update');
+Route::delete('/collectors/{collector}', 'CollectorController@destroy');

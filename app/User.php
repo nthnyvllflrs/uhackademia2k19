@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function resident() {
         return $this->hasOne('App\Resident');
     }
+
+    public function collector() {
+        return $this->hasOne('App\Resident');
+    }
 }

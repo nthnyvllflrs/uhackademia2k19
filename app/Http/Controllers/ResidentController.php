@@ -35,7 +35,7 @@ class ResidentController extends Controller {
         }
 
         $request['password'] = Hash::make($request['password']);
-        $user = User::create($request->toArray());
+        $user = User::create(array_merge($request->toArray(), ['verified' => false]));
         $barangay = Barangay::where('name', $request->barangay)->first();
         $resident = Resident::create(array_merge($request->toArray(), ['user_id' => $user->id, 'barangay_id' => $barangay->id]));
 
@@ -44,14 +44,15 @@ class ResidentController extends Controller {
     }
 
     public function show(Resident $resident) {
-        return response(['resident' => Resident::with(['user', 'barangay'])->get()]);
+        $resident->user; $resident->barangay;
+        return response(['resident' => $resident], 200);
     }
 
     public function update(Request $request, Resident $resident) {
         $request['password'] = Hash::make($request['password']);
         $resident->update($request->toArray());
         $resident->user->update($request->toArray());
-        return response(['resident' => $resident::with(['user', 'barangay'])->get()], 200);
+        return response(['resident' => $resident], 200);
     }
 
     public function destroy(Resident $resident) {
