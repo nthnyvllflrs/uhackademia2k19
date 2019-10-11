@@ -2055,9 +2055,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      dialog: false,
+      editedBarangay: {
+        name: null
+      },
+      defaultBarangay: {
+        name: null
+      },
+      editedIndex: -1,
       headers: [{
         text: 'ID',
         value: 'id'
@@ -2083,6 +2121,49 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Mampang'
       }]
     };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Barangay' : 'Edit Barangay';
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.cancel();
+    }
+  },
+  methods: {
+    editBarangay: function editBarangay(item) {
+      console.log(item);
+      this.editedIndex = this.barangays.indexOf(item);
+      this.editedBarangay = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteBarangay: function deleteBarangay(item) {
+      var itemDeletion = confirm('Are you sure you want to delete this request?');
+
+      if (itemDeletion == true) {
+        console.log("Deleted");
+      } else {
+        console.log("!Deleted");
+      }
+    },
+    cancel: function cancel() {
+      var _this = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this.editedBarangay = Object.assign({}, _this.defaultBarangay);
+        _this.editedIndex = -1;
+      }, 300);
+    },
+    saveBarangay: function saveBarangay() {
+      if (this.editedIndex > -1) {
+        console.log("Update");
+      } else {
+        console.log("Save");
+      }
+    }
   }
 });
 
@@ -2166,7 +2247,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      drawer: false
+      drawer: true
     };
   }
 });
@@ -2352,9 +2433,92 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      loading: false,
+      dialog: false,
+      mapDialog: false,
+      editedIndex: -1,
+      defaultResident: {
+        username: null,
+        firstname: null,
+        lastname: null,
+        contact_number: null,
+        location: 'Zamboanga City',
+        latitude: 6.9214,
+        longitude: 122.0790
+      },
+      editedResident: {
+        username: null,
+        firstname: null,
+        lastname: null,
+        contact_number: null,
+        location: 'Zamboanga City',
+        latitude: 6.9214,
+        longitude: 122.0790
+      },
       headers: [{
         text: 'ID',
         value: 'id'
@@ -2387,8 +2551,58 @@ __webpack_require__.r(__webpack_exports__);
         username: 'FtmMrcyNrb',
         name: 'Fatima Mercy Onrubia',
         barangay: 'Tetuan'
-      }]
+      }],
+      barangays: ['Sta Catalina', 'Talon-Talon', 'Mampang', 'Arena Blanco']
     };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Resident' : 'Edit Resident';
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.cancel();
+    }
+  },
+  methods: {
+    showMapView: function showMapView(item) {
+      if (item) {// View
+      } else {// Update and Save
+        }
+
+      this.mapDialog = !this.mapDialog;
+    },
+    editResident: function editResident(item) {
+      this.editedIndex = this.residents.indexOf(item);
+      this.editedResident = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteResident: function deleteResident(item) {
+      var itemDeletion = confirm('Are you sure you want to delete this request?');
+
+      if (itemDeletion == true) {
+        console.log("Deleted");
+      } else {
+        console.log("!Deleted");
+      }
+    },
+    cancel: function cancel() {
+      var _this = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this.editedResident = Object.assign({}, _this.defaultResident);
+        _this.editedIndex = -1;
+      }, 300);
+    },
+    saveResident: function saveResident() {
+      if (this.editedIndex > -1) {
+        console.log("Update");
+      } else {
+        console.log("Save");
+      }
+    }
   }
 });
 
@@ -38381,6 +38595,152 @@ var render = function() {
                                   "v-toolbar-title",
                                   { staticClass: "title" },
                                   [_vm._v("Barangays")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "flex-grow-1" }),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "500px" },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "activator",
+                                        fn: function(ref) {
+                                          var on = ref.on
+                                          return [
+                                            _c(
+                                              "v-btn",
+                                              _vm._g(
+                                                {
+                                                  attrs: {
+                                                    small: "",
+                                                    color: "success"
+                                                  }
+                                                },
+                                                on
+                                              ),
+                                              [
+                                                _c(
+                                                  "v-icon",
+                                                  {
+                                                    attrs: {
+                                                      small: "",
+                                                      left: ""
+                                                    }
+                                                  },
+                                                  [_vm._v("fa-plus")]
+                                                ),
+                                                _vm._v(
+                                                  " Add Barangay\n                                    "
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ]),
+                                    model: {
+                                      value: _vm.dialog,
+                                      callback: function($$v) {
+                                        _vm.dialog = $$v
+                                      },
+                                      expression: "dialog"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-card",
+                                      [
+                                        _c("v-card-title", [
+                                          _c(
+                                            "span",
+                                            { staticClass: "headline" },
+                                            [_vm._v(_vm._s(_vm.formTitle))]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card-text",
+                                          [
+                                            _c(
+                                              "v-container",
+                                              [
+                                                _c(
+                                                  "v-row",
+                                                  [
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "12" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Name"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedBarangay
+                                                                .name,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedBarangay,
+                                                                "name",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedBarangay.name"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card-actions",
+                                          [
+                                            _c("div", {
+                                              staticClass: "flex-grow-1"
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "error" },
+                                                on: { click: _vm.cancel }
+                                              },
+                                              [_vm._v("Cancel")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "success" },
+                                                on: { click: _vm.saveBarangay }
+                                              },
+                                              [_vm._v("Save")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
                                 )
                               ],
                               1
@@ -38399,7 +38759,11 @@ var render = function() {
                               {
                                 staticClass: "mr-2",
                                 attrs: { small: "" },
-                                on: { click: function($event) {} }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editBarangay(item)
+                                  }
+                                }
                               },
                               [_vm._v("fa-edit")]
                             ),
@@ -38408,7 +38772,11 @@ var render = function() {
                               "v-icon",
                               {
                                 attrs: { small: "" },
-                                on: { click: function($event) {} }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteBarangay(item)
+                                  }
+                                }
                               },
                               [_vm._v("fa-trash-alt")]
                             )
@@ -38962,6 +39330,406 @@ var render = function() {
                                   "v-toolbar-title",
                                   { staticClass: "title" },
                                   [_vm._v("Residents")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "flex-grow-1" }),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "500px" },
+                                    scopedSlots: _vm._u([
+                                      {
+                                        key: "activator",
+                                        fn: function(ref) {
+                                          var on = ref.on
+                                          return [
+                                            _c(
+                                              "v-btn",
+                                              _vm._g(
+                                                {
+                                                  attrs: {
+                                                    small: "",
+                                                    color: "success"
+                                                  }
+                                                },
+                                                on
+                                              ),
+                                              [
+                                                _c(
+                                                  "v-icon",
+                                                  {
+                                                    attrs: {
+                                                      small: "",
+                                                      left: ""
+                                                    }
+                                                  },
+                                                  [_vm._v("fa-plus")]
+                                                ),
+                                                _vm._v(
+                                                  " Add Resident\n                                    "
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        }
+                                      }
+                                    ]),
+                                    model: {
+                                      value: _vm.dialog,
+                                      callback: function($$v) {
+                                        _vm.dialog = $$v
+                                      },
+                                      expression: "dialog"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-card",
+                                      [
+                                        _c("v-card-title", [
+                                          _c(
+                                            "span",
+                                            { staticClass: "headline" },
+                                            [_vm._v(_vm._s(_vm.formTitle))]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card-text",
+                                          [
+                                            _c(
+                                              "v-container",
+                                              [
+                                                _c(
+                                                  "v-row",
+                                                  [
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "12" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Username"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .username,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "username",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.username"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Firstname"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .firstname,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "firstname",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.firstname"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label: "Lastname"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .lastname,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "lastname",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.lastname"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            label:
+                                                              "Contact Number"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .contact_number,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "contact_number",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.contact_number"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-select", {
+                                                          attrs: {
+                                                            items:
+                                                              _vm.barangays,
+                                                            label: "Barangay"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .barangay,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "barangay",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.barangay"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "12" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            readonly: "",
+                                                            label: "Location",
+                                                            "append-outer-icon":
+                                                              "fa-map-marker-alt"
+                                                          },
+                                                          on: {
+                                                            "click:append-outer": function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.showMapView(
+                                                                null
+                                                              )
+                                                            }
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .location,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "location",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.location"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            readonly: "",
+                                                            label: "Latitude"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .latitude,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "latitude",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.latitude"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c("v-text-field", {
+                                                          attrs: {
+                                                            readonly: "",
+                                                            label: "Longitude"
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.editedResident
+                                                                .longitude,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.editedResident,
+                                                                "longitude",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "editedResident.longitude"
+                                                          }
+                                                        })
+                                                      ],
+                                                      1
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card-actions",
+                                          [
+                                            _c("div", {
+                                              staticClass: "flex-grow-1"
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "error" },
+                                                on: { click: _vm.cancel }
+                                              },
+                                              [_vm._v("Cancel")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-btn",
+                                              {
+                                                attrs: { color: "success" },
+                                                on: { click: _vm.saveResident }
+                                              },
+                                              [_vm._v("Save")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "500px" },
+                                    model: {
+                                      value: _vm.mapDialog,
+                                      callback: function($$v) {
+                                        _vm.mapDialog = $$v
+                                      },
+                                      expression: "mapDialog"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "v-card",
+                                      [
+                                        _c(
+                                          "v-card-text",
+                                          [
+                                            _c("v-container", [
+                                              _c("p", [
+                                                _vm._v("Map will show here!")
+                                              ])
+                                            ])
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
                                 )
                               ],
                               1
@@ -38980,7 +39748,11 @@ var render = function() {
                               {
                                 staticClass: "mr-2",
                                 attrs: { small: "" },
-                                on: { click: function($event) {} }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showMapView(item)
+                                  }
+                                }
                               },
                               [_vm._v("fa-map-marked-alt")]
                             ),
@@ -38990,7 +39762,11 @@ var render = function() {
                               {
                                 staticClass: "mr-2",
                                 attrs: { small: "" },
-                                on: { click: function($event) {} }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editResident(item)
+                                  }
+                                }
                               },
                               [_vm._v("fa-edit")]
                             ),
@@ -38999,7 +39775,11 @@ var render = function() {
                               "v-icon",
                               {
                                 attrs: { small: "" },
-                                on: { click: function($event) {} }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteResident(item)
+                                  }
+                                }
                               },
                               [_vm._v("fa-trash-alt")]
                             )
@@ -91551,15 +92331,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************!*\
   !*** ./resources/js/components/DashboardComponent.vue ***!
   \********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DashboardComponent_vue_vue_type_template_id_01ab55f4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=template&id=01ab55f4& */ "./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4&");
 /* harmony import */ var _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -91589,7 +92368,7 @@ component.options.__file = "resources/js/components/DashboardComponent.vue"
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
