@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'username', 'password', 'user_type_id'
+        'username', 'password', 'full_name', 'address', 'lat', 'lng', 'role'
     ];
 
     protected $hidden = [
@@ -24,14 +24,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function type() {
-        return $this->belongsTo('App\UserType');
-    }
-
-    public function information() {
-        return $this->hasOne('App\UserInformation');
-    }
 
     /**
      * Automatically creates hash for the user password.
