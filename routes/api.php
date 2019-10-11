@@ -27,4 +27,12 @@ Route::middleware('auth:api')->group( function() {
         Route::get('/{id}', 'ReportController@find');
         Route::post('/{id}', 'ReportController@update');
     });
+
+    Route::prefix('resident')->group(function (){
+        Route::get('/', 'ResidentController@index');
+        Route::post('/', 'ResidentController@create');
+        Route::post('delete', 'ResidentController@delete');
+        Route::get('/{id}', 'ResidentController@find');
+        Route::post('/{id}', 'ResidentController@update');
+    });
 });
