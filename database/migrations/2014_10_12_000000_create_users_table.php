@@ -19,11 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->string('full_name');
-
-            $table->string('address')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-
             $table->tinyInteger('role')->unsigned()->default(1);
 
             $table->timestamps();
