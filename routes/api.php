@@ -33,3 +33,9 @@ Route::post('/residents', 'ResidentController@store');
 Route::get('/residents/{resident}', 'ResidentController@show');
 Route::put('/residents/{resident}', 'ResidentController@update');
 Route::delete('/residents/{resident}', 'ResidentController@destroy');
+
+Route::get('/reports', 'ReportController@index');
+Route::post('/reports', 'ReportController@store');
+Route::get('/reports/{report}', 'ReportController@show');
+Route::put('/reports/{report}', 'ReportController@update');
+Route::delete('/reports/{report}', 'ReportController@destroy');

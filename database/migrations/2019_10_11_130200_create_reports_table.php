@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('resident_id');
             $table->string('description')->default('No Description');
             $table->string('photo')->nullable();
             $table->string('address')->default('Zamboanga City');
@@ -23,7 +23,7 @@ class CreateReportsTable extends Migration
             $table->string('longitude')->default('122.0790');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('resident_id')->references('id')->on('residents')->onDelete('cascade');
         });
     }
 
