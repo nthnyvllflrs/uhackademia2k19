@@ -34,6 +34,8 @@ class ReportController extends Controller
             'lng' => $request->lng,
         ]);
 
+
+        //Return object
         return response('Report successfully been created.', 201);
     }
 
@@ -52,10 +54,12 @@ class ReportController extends Controller
             'lng'
         ]));
 
+        //Return object
         return response('Report updated!', 200);
     }
 
     public function delete(Request $request) {
+        //TODO: Validation if deleter is owner of object
         $report = Report::findOrFail($request->report_id);
         $report->delete();
 
