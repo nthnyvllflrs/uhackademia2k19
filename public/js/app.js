@@ -2427,8 +2427,6 @@ __webpack_require__.r(__webpack_exports__);
         _this2.editedCollector.address = response.data.collector.address;
         _this2.editedCollector.latitude = response.data.collector.latitude;
         _this2.editedCollector.longitude = response.data.collector.longitude;
-        _this2.collectorLocation.latitude = repsonse.data.collector.latitude;
-        _this2.collectorLocation.longitude = repsonse.data.collector.longitude;
         _this2.dialog = true;
       })["catch"](function (error) {
         alert(error);
@@ -2512,7 +2510,15 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     showCollectorLocation: function showCollectorLocation(item) {
-      this.mapDialog = !this.mapDialog;
+      var _this6 = this;
+
+      axios.get('api/collectors/' + item.id).then(function (response) {
+        _this6.collectorLocation.latitude = response.data.collector.latitude;
+        _this6.collectorLocation.longitude = response.data.collector.longitude;
+        _this6.mapDialog = !_this6.mapDialog;
+      })["catch"](function (error) {
+        alert(error);
+      });
     }
   }
 });
@@ -2764,6 +2770,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Barangay',
         value: 'barangay'
+      }, {
+        text: 'Address',
+        value: 'address'
       }, {
         text: 'Date and Time',
         value: 'date_time'

@@ -21,6 +21,7 @@ class ReportController extends Controller {
                     'id' => $report->id,
                     'username' => $report->resident->user->username,
                     'barangay' => $report->resident->barangay->name,
+                    'address' => $report->address,
                     'date_time' => date('d-m-Y H:i:s', strtotime($report->created_at)),
                 ];
             }
@@ -37,6 +38,7 @@ class ReportController extends Controller {
                     'id' => $report->id,
                     'username' => $report->resident->user->username,
                     'barangay' => $report->resident->barangay->name,
+                    'address' => $report->address,
                     'date_time' => date('d-m-Y H:i:s', strtotime($report->created_at)),
                 ];
             }
