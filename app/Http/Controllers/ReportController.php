@@ -86,7 +86,7 @@ class ReportController extends Controller {
     }
 
     public function send_report(Request $request) {
-        
+        return 1;
         $response = array();
         $response["status"] = 2;
         $response["message"] = file_get_contents('php://input');
