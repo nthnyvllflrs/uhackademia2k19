@@ -11,7 +11,7 @@ use App\CollectorSchedule;
 class CollectorScheduleController extends Controller {
     public function index(Request $request) {
         $data = [];
-        if($request->user()->role == 'Administrator') {
+        // if($request->user()->role == 'Administrator') {
             foreach(CollectorSchedule::all() as $schedule) {
                 $data[] = [
                     'id' => $schedule->id,
@@ -20,7 +20,7 @@ class CollectorScheduleController extends Controller {
                     'time' => $schedule->time,
                 ];
             }
-        }
+        // }
         return response(['schedules' => $data], 200);
     }
 

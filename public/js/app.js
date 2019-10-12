@@ -96951,15 +96951,13 @@ var routes = [{
   path: '/',
   name: 'Landing',
   component: _components_LandingComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if (!localStorage.getItem('user-token')) {
-      next();
-    } else {
-      next({
-        name: 'reports'
-      });
-    }
-  },
+  // beforeEnter(to, from, next) {
+  //     if(!localStorage.getItem('user-token')){
+  //         next()
+  //     } else {
+  //         next({name: 'reports'})
+  //     }
+  // },
   children: [{
     path: '/',
     name: 'home',
@@ -96977,21 +96975,14 @@ var routes = [{
   path: '/dashboard',
   name: 'dashboard',
   component: _components_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-  beforeEnter: function beforeEnter(to, from, next) {
-    if (localStorage.getItem('user-token')) {
-      if (to.name == 'dashboard') {
-        next({
-          name: 'reports'
-        });
-      } else {
-        next();
-      }
-    } else {
-      next({
-        name: 'signin'
-      });
-    }
-  },
+  // beforeEnter(to, from, next) {
+  //     if(localStorage.getItem('user-token')){
+  //         if(to.name == 'dashboard') {next({name: 'reports'})}
+  //         else {next()}
+  //     } else {
+  //         next({name: 'signin'})
+  //     }
+  // },
   children: [{
     path: '/reports',
     name: 'reports',
