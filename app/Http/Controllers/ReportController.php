@@ -99,6 +99,7 @@ class ReportController extends Controller {
         Report::create([
             'resident_id'=>'1',
             'description'=>$arry->description,
+            'photo'=>null,
             'address'=>'Zamboanga City',
             'latitude'=>$arry->latitude,
             'longitude' => $arry->longitude
