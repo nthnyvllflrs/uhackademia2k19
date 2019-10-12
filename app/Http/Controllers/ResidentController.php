@@ -75,6 +75,9 @@ class ResidentController extends Controller {
     }
 
     public function login_resident(Request $request) {
-        return $request;
+        $response = array();
+        $response["status"] = 0;
+        $response["message"] = "Login successful";
+        return $response;
     }
 }
