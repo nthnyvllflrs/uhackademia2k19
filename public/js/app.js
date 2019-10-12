@@ -2660,6 +2660,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -40567,58 +40582,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-app",
-    [
-      _c(
-        "v-content",
-        [
-          _c(
-            "v-container",
-            { attrs: { fluid: "" } },
-            [
-              _c(
-                "v-row",
-                { attrs: { align: "center", justify: "center" } },
-                [
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12", sm: "8", md: "4" } },
-                    [
-                      _c(
-                        "v-card",
-                        { staticClass: "elevation-0 transparent" },
-                        [
-                          _c(
-                            "v-card-text",
-                            [
-                              _c("v-img", {
-                                attrs: {
-                                  src:
-                                    "https://res.cloudinary.com/nthnyvllflrs/image/upload/v1570839691/Limpieza.png"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("v-app", [
+    _c(
+      "section",
+      [
+        _c(
+          "v-container",
+          { attrs: { fluid: "", "pa-0": "" } },
+          [
+            _c(
+              "v-img",
+              {
+                attrs: {
+                  src: "img/zambo.jpg",
+                  "max-height": "100vh",
+                  "max-width": "100vw"
+                }
+              },
+              [
+                _c(
+                  "v-layout",
+                  {
+                    attrs: {
+                      "align-center": "",
+                      column: "",
+                      "fill-height": "",
+                      "justify-center": ""
+                    }
+                  },
+                  [
+                    _c(
+                      "v-card",
+                      { staticClass: "elevation-0 transparent" },
+                      [
+                        _c(
+                          "v-card-text",
+                          [
+                            _c(
+                              "v-avatar",
+                              { attrs: { size: "400px" } },
+                              [
+                                _c("v-img", {
+                                  attrs: {
+                                    src:
+                                      "https://res.cloudinary.com/nthnyvllflrs/image/upload/v1570839691/Limpieza.png"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
