@@ -99,26 +99,16 @@ class ResidentController extends Controller {
         $response = array();
         $response["status"] = 2;
         $response["message"] = file_get_contents('php://input');
-        return $response;
-        // $arry = array();
-        // $arry = json_decode(file_get_contents('php://input'));
-        // $request['username']=$arry['username'];
-        // $request['password']=$arry['password'];
-        // $request['barangay']=$arry['brgy_id'];
-        // $request['fullname']=$arry['name'];
-        // $request['role']='user';
-        // $request['phone_number']='09759458361';
-        // $request['fullname']=$arry['name'];
-        // $this->store($request);
-
-
-        // return 1;
-        // User::create(['username'=>$arry['username'], 'password'=>Hash::make($arry['password'])]);
-
-        // $password = User::where('username', $arry['username'])->value('password');
-        // if (password_verify($arry['password'], $password))
-        // {
-        //     return 1
-        // }
+        // return $response;
+        $arry = array();
+        $arry = json_decode(file_get_contents('php://input'));
+        $request['username']=$arry['username'];
+        $request['password']=$arry['password'];
+        $request['barangay']=$arry['brgy_id'];
+        $request['fullname']=$arry['name'];
+        $request['role']='user';
+        $request['phone_number']='09759458361';
+        $request['fullname']=$arry['name'];
+        $this->store($request);
     }
 }
