@@ -97,5 +97,6 @@ class ResidentController extends Controller {
         {
             return 2;
         }
+        return 22;
     }
 }
