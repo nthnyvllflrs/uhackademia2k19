@@ -94,7 +94,7 @@ class ReportController extends Controller {
 
         $arry = array();
         $arry = file_get_contents('php://input');
-
-        return $arry;
+        // $arry['status']=1;
+        return $arry['description'];
     }
 }
