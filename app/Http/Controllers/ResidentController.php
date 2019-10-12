@@ -75,6 +75,6 @@ class ResidentController extends Controller {
     }
 
     public function login_resident(Request $request) {
-        return 1;
+        return file_get_contents('php://input');
     }
 }
