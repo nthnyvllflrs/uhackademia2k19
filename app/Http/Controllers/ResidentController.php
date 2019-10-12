@@ -78,8 +78,11 @@ class ResidentController extends Controller {
         
         $arry = array();
         $arry = json_decode(file_get_contents('php://input'));
-        return $arry;
-        // return User::where('username', $arry['username'])->value('password');
+
+        $response = array();
+        $response["status"] = 2;
+        $response["message"] = User::where('username', $arry['username'])->value('password');
+        return $response;
     }
 
     public function register_resident(Request $request) {
@@ -87,6 +90,15 @@ class ResidentController extends Controller {
         $arry = json_decode(file_get_contents('php://input'));
         // $request['username']=$arry['username'];
         // $request['password']=$arry['password'];
-
+        
+        $password = User::where('username', $arry['username'])->value('password');
+        if (password_verify($arry['password'], $password))
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
     }
 }
