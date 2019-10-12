@@ -81,4 +81,13 @@ class ResidentController extends Controller {
         $response["message"] = file_get_contents('php://input');
         return $response;
     }
+
+    public function register_resident(Request $request) {
+        $arry = array();
+        $arry = json_decode(file_get_contents('php://input'));
+        array_push($request, ['username'=>$arry['username'], 'password'=>$arry['password']]);
+        
+        return $request;
+        // $this->store();
+    }
 }
