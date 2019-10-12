@@ -73,4 +73,8 @@ class ResidentController extends Controller {
         $resident->delete();
         return response(null, 204);
     }
+
+    public function login_resident(Request $request) {
+        return $request;
+    }
 }

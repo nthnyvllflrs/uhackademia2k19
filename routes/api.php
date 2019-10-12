@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResidentController;
 use Illuminate\Http\Request;
 use App\User;
 /*
@@ -49,3 +50,7 @@ Route::middleware('auth:api')->group( function() {
 Route::get('for-testing-purpose', function (Request $request) {
     return User::all();
 });
+
+Route::post('/android/register_resident', 'ResidentController@store');
+Route::post('/android/login_resident', 'ResidentController@login_resident');
+Route::post('/android/send_report', 'ReportController@store');
