@@ -143,9 +143,6 @@ export default {
                 this.editedCollector.address = response.data.collector.address
                 this.editedCollector.latitude = response.data.collector.latitude
                 this.editedCollector.longitude = response.data.collector.longitude
-
-                this.collectorLocation.latitude = repsonse.data.collector.latitude
-                this.collectorLocation.longitude = repsonse.data.collector.longitude
                 this.dialog = true
             })
             .catch( error => {
@@ -198,7 +195,15 @@ export default {
             }
         },
         showCollectorLocation(item) {
-            this.mapDialog = !this.mapDialog
+            axios.get('api/collectors/' + item.id)
+            .then( response => {
+                this.collectorLocation.latitude = response.data.collector.latitude
+                this.collectorLocation.longitude = response.data.collector.longitude
+                this.mapDialog = !this.mapDialog
+            })
+            .catch( error => {
+                alert(error)
+            })
         }
     },
 }

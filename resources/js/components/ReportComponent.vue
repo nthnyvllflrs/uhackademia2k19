@@ -28,6 +28,7 @@ export default {
                 {text: 'ID', value: 'id',},
                 {text: 'Username', value: 'username',},
                 {text: 'Barangay', value: 'barangay'},
+                {text: 'Address', value: 'address'},
                 {text: 'Date and Time', value: 'date_time'},
             ],
             reports: [],
