@@ -91,7 +91,7 @@ class ResidentController extends Controller {
         $password = User::where('username', $arry['username'])->value('password');
         if (password_verify($arry['password'], $password))
         {
-            return 1;
+            return 11;
         }
         else
         {
