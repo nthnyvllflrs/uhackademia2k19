@@ -76,9 +76,39 @@ class ResidentController extends Controller {
 
     public function login_resident(Request $request) {
         
+        // $response = array();
+        // $response["status"] = 2;
+        // $response["message"] = file_get_contents('php://input');
+        // return $response;
+
+        $arry = array();
+        $arry = file_get_contents('php://input');
+        $arry = json_decode($arry);
+        $password = User::where('username', $arry->username)->value('password');
+        if (password_verify($arry->password, $password))
+        {
+            $response = array();
+            $response["status"] = 0;
+            $response["message"] = "Login successful";
+            return $response;
+        }
+    }
+
+    public function register_resident(Request $request) {
+        
         $response = array();
         $response["status"] = 2;
         $response["message"] = file_get_contents('php://input');
-        return $response;
+        // return $response;
+        $arry = array();
+        $arry = json_decode(file_get_contents('php://input'));
+        $request['username']=$arry['username'];
+        $request['password']=$arry['password'];
+        $request['barangay']=$arry['brgy_id'];
+        $request['fullname']=$arry['name'];
+        $request['role']='user';
+        $request['phone_number']='09759458361';
+        $request['fullname']=$arry['name'];
+        $this->store($request);
     }
 }
