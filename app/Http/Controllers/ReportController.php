@@ -14,6 +14,7 @@ use App\Report;
 
 class ReportController extends Controller {
     public function index(Request $request) {
+        $data = [];
         if($request->user()->role == 'Administrator') {
             foreach(Report::all() as $report) {
                 $data[] = [

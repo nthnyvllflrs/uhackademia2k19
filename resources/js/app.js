@@ -72,6 +72,16 @@ axios.interceptors.request.use(function (config) {
 
 const router = new VueRouter({mode: 'history', routes})
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyBLvHFeixDacvhmdX-L_0EoG4of6n0pM1A',
+        libraries: 'places',
+    },
+    installComponents: true
+})
+
 const app = new Vue({
     vuetify, router,
 }).$mount('#app')

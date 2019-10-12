@@ -47,9 +47,34 @@
                                         </v-card-actions>
                                     </v-card>
                                 </v-dialog>
+
+                                <v-dialog v-model="mapDialog" max-width="500px">
+                                    <!-- <v-card class="pd">
+                                        <v-card-text> -->
+                                            <GmapMap ref="mapRef"
+                                            :options="{
+                                                    zoomControl: true,
+                                                    mapTypeControl: false,
+                                                    scaleControl: false,
+                                                    streetViewControl: false,
+                                                    rotateControl: false,
+                                                    fullscreenControl: true,
+                                                    disableDefaultUi: false
+                                                }"
+                                                :center="collectorLocation"
+                                                :zoom="15"
+                                                map-type-id="terrain"
+                                                style="width: auto; height: 500px;">
+                                                <GmapMarker ref="mapMarker"
+                                                    :position="collectorLocation"/>
+                                                </GmapMap>
+                                        <!-- </v-card-text>
+                                    </v-card> -->
+                                </v-dialog>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.action="{ item }">
+                            <v-icon small class="mr-2" @click="showCollectorLocation(item)">fa-map-marker-alt</v-icon>
                             <v-icon small class="mr-2" @click="editCollector(item)">fa-edit</v-icon>
                             <v-icon small @click="deleteCollector(item)">fa-trash-alt</v-icon>
                         </template>
@@ -64,6 +89,8 @@
 export default {
     data() {
         return {
+            collectorLocation: { lat: 6.9214, lng: 122.0790},
+            mapDialog: false,
             error: null,
             userRole: null, 
             dialog: false, loading: false,
@@ -116,6 +143,9 @@ export default {
                 this.editedCollector.address = response.data.collector.address
                 this.editedCollector.latitude = response.data.collector.latitude
                 this.editedCollector.longitude = response.data.collector.longitude
+
+                this.collectorLocation.latitude = repsonse.data.collector.latitude
+                this.collectorLocation.longitude = repsonse.data.collector.longitude
                 this.dialog = true
             })
             .catch( error => {
@@ -166,6 +196,9 @@ export default {
                 .catch( error => { this.error = error.message})
                 .finally( x => { this.loading = false})
             }
+        },
+        showCollectorLocation(item) {
+            this.mapDialog = !this.mapDialog
         }
     },
 }
