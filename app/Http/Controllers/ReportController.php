@@ -96,6 +96,19 @@ class ReportController extends Controller {
         $arry = file_get_contents('php://input');
         // $arry['status']=1;
         $arry = json_decode($arry);
-        return $arry->description;
+        Report::create([
+            'resident_id'=>'1',
+            'description'=>$arry->description,
+            'address'=>'Zamboanga City',
+            'latitude'=>$arry->latitude,
+            'longitude' => $arry->longitude
+        ]);
+
+        $response = array();
+        
+        $response["status"] = 0;
+        $response["message"] = "Thankyou for your report!";
+
+        return $response;
     }
 }
