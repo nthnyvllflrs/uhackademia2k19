@@ -76,29 +76,27 @@ class ResidentController extends Controller {
 
     public function login_resident(Request $request) {
         
-        $arry = array();
-        $arry = json_decode(file_get_contents('php://input'));
-
         $response = array();
         $response["status"] = 2;
-        $response["message"] = $arry['username'];
+        $response["message"] = file_get_contents('php://input');
         return $response;
     }
 
     public function register_resident(Request $request) {
         $arry = array();
         $arry = json_decode(file_get_contents('php://input'));
-        // $request['username']=$arry['username'];
-        // $request['password']=$arry['password'];
-        
-        $password = User::where('username', $arry['username'])->value('password');
-        if (password_verify($arry['password'], $password))
-        {
-            return 1;
-        }
-        else
-        {
-            return 2;
-        }
+        $request['username']=$arry['username'];
+        $request['password']=$arry['password'];
+        $request['barangay']=$arry['brgy_id'];
+        $request['fullname']=$arry['name'];
+        $request['role']='user';
+        $request['phone_number']='09759458361';
+        $request['fullname']=$arry['name'];
+        $this->store($request);
+        // $password = User::where('username', $arry['username'])->value('password');
+        // if (password_verify($arry['password'], $password))
+        // {
+        //     return 1
+        // }
     }
 }
