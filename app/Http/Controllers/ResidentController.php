@@ -83,8 +83,8 @@ class ResidentController extends Controller {
     }
 
     public function register_resident(Request $request) {
-        $arry = array();
-        $arry = json_decode(file_get_contents('php://input'));
+        // $arry = array();
+        // $arry = json_decode(file_get_contents('php://input'));
         // $request['username']=$arry['username'];
         // $request['password']=$arry['password'];
         // $request['barangay']=$arry['brgy_id'];
@@ -96,7 +96,7 @@ class ResidentController extends Controller {
 
 
         return 1;
-        User::create(['username'=>$arry['username'], 'password'=>Hash::make($arry['password'])]);
+        // User::create(['username'=>$arry['username'], 'password'=>Hash::make($arry['password'])]);
 
         // $password = User::where('username', $arry['username'])->value('password');
         // if (password_verify($arry['password'], $password))
