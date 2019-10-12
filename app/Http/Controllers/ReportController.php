@@ -89,7 +89,7 @@ class ReportController extends Controller {
         
         $response = array();
         $response["status"] = 2;
-        $response["message"] = file_get_contents('php://input');
+        $response["message"] = 'adas';
         return $response;
     }
 }
