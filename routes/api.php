@@ -45,6 +45,12 @@ Route::middleware('auth:api')->group( function() {
     Route::get('/collectors/{collector}', 'CollectorController@show');
     Route::put('/collectors/{collector}', 'CollectorController@update');
     Route::delete('/collectors/{collector}', 'CollectorController@destroy');
+    
+    Route::get('/collector-schedule', 'CollectorScheduleController@index');
+    Route::post('/collector-schedule', 'CollectorScheduleController@store');
+    Route::get('/collector-schedule/{collector_schedule}', 'CollectorScheduleController@show');
+    Route::put('/collector-schedule/{collector_schedule}', 'CollectorScheduleController@update');
+    Route::delete('/collector-schedule/{collector_schedule}', 'CollectorScheduleController@destroy');
 });
 
 Route::get('for-testing-purpose', function (Request $request) {

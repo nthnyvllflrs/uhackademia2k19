@@ -10,6 +10,10 @@ class Barangay extends Model
         'user_id', 'name',
     ];
 
+    public function schedules() {
+        return $this->hasMany('App\CollectorSchedule');
+    }
+
     public function user() {
         return $this->belongsTo('App\User');
     }

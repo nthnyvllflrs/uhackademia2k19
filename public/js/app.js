@@ -2525,6 +2525,230 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorScheduleComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CollectorScheduleComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      barangay_names: [],
+      error: null,
+      userRole: null,
+      dialog: false,
+      loading: false,
+      editedIndex: -1,
+      defaultSchedule: {
+        barangay: null,
+        date: null,
+        time: null
+      },
+      editedSchedule: {
+        barangay: null,
+        date: null,
+        time: null
+      },
+      headers: [{
+        text: 'ID',
+        value: 'id'
+      }, {
+        text: 'Barangay',
+        value: 'barangay'
+      }, {
+        text: 'Date',
+        value: 'date'
+      }, {
+        text: 'Time',
+        value: 'time'
+      } // {text: 'Actions', value: 'action', sortable: false },
+      ],
+      schedules: []
+    };
+  },
+  mounted: function mounted() {
+    this.retrieveBarangayList();
+    this.retrieveScheduleList();
+    this.userRole = localStorage.getItem('user-role');
+
+    if (this.userRole == 'Administrator') {
+      this.headers.push({
+        text: 'Actions',
+        value: 'action',
+        sortable: false
+      });
+    }
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Schedule' : 'Edit Schedule';
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.cancel();
+    }
+  },
+  methods: {
+    retrieveBarangayList: function retrieveBarangayList() {
+      var _this = this;
+
+      axios.get('api/barangays/names').then(function (response) {
+        _this.barangay_names = response.data.barangay_names;
+      })["catch"](function (error) {
+        alert(error);
+      })["finally"](function (x) {
+        _this.loading = false;
+      });
+    },
+    retrieveScheduleList: function retrieveScheduleList() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get('api/collector-schedule').then(function (response) {
+        _this2.schedules = response.data.schedules;
+      })["catch"](function (error) {
+        alert(error);
+      })["finally"](function (x) {
+        _this2.loading = false;
+      });
+    },
+    editSchedule: function editSchedule(item) {
+      this.editedIndex = this.schedules.indexOf(item);
+      this.editedSchedule = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteSchedule: function deleteSchedule(item) {
+      var _this3 = this;
+
+      var itemDeletion = confirm('Are you sure you want to delete this item?');
+
+      if (itemDeletion == true) {
+        axios["delete"]('api/collector-schedule/' + item.id).then(function (response) {
+          var index = _this3.schedules.indexOf(item);
+
+          _this3.schedules.splice(index, 1);
+        })["catch"](function (error) {
+          alert(error);
+        });
+      }
+    },
+    cancel: function cancel() {
+      var _this4 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this4.editedSchedule = Object.assign({}, _this4.defaultSchedule);
+        _this4.editedIndex = -1;
+      }, 500);
+    },
+    saveSchedule: function saveSchedule() {
+      var _this5 = this;
+
+      this.loading = true;
+
+      if (this.editedIndex > -1) {
+        // Update item
+        axios.put('api/collector-schedule/' + this.editedSchedule.id, {
+          barangay: this.editedSchedule.barangay,
+          date: this.editedSchedule.date,
+          time: this.editedSchedule.time
+        }).then(function (response) {
+          Object.assign(_this5.schedules[_this5.editedIndex], _this5.editedSchedule);
+
+          _this5.cancel();
+        })["catch"](function (error) {
+          _this5.error = error.message;
+        })["finally"](function (x) {
+          _this5.loading = false;
+        });
+      } else {
+        // Create new item
+        axios.post('api/collector-schedule', {
+          barangay: this.editedSchedule.barangay,
+          date: this.editedSchedule.date,
+          time: this.editedSchedule.time
+        }).then(function (response) {
+          _this5.editedSchedule.id = response.data.collector_schedule.id;
+          _this5.editedSchedule.barangay = response.data.collector_schedule.barangay.name;
+
+          _this5.schedules.push(_this5.editedSchedule);
+
+          _this5.cancel();
+        })["catch"](function (error) {
+          _this5.error = error.message;
+        })["finally"](function (x) {
+          _this5.loading = false;
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js& ***!
@@ -2534,6 +2758,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40343,6 +40578,386 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorScheduleComponent.vue?vue&type=template&id=6137d578&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CollectorScheduleComponent.vue?vue&type=template&id=6137d578& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        { attrs: { fluid: "" } },
+        [
+          _c(
+            "v-row",
+            { attrs: { justify: "center", align: "center" } },
+            [
+              _c(
+                "v-col",
+                { staticClass: "text-center" },
+                [
+                  _c("v-data-table", {
+                    staticClass: "elevation-1",
+                    attrs: {
+                      loading: _vm.loading,
+                      "loading-text": "Loading... Please wait",
+                      headers: _vm.headers,
+                      items: _vm.schedules
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "top",
+                        fn: function() {
+                          return [
+                            _c(
+                              "v-toolbar",
+                              { attrs: { flat: "", color: "white" } },
+                              [
+                                _c(
+                                  "v-toolbar-title",
+                                  { staticClass: "title" },
+                                  [_vm._v("Schedules")]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "flex-grow-1" }),
+                                _vm._v(" "),
+                                _vm.userRole == "Administrator"
+                                  ? _c(
+                                      "v-dialog",
+                                      {
+                                        attrs: { "max-width": "500px" },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "activator",
+                                              fn: function(ref) {
+                                                var on = ref.on
+                                                return [
+                                                  _c(
+                                                    "v-btn",
+                                                    _vm._g(
+                                                      {
+                                                        attrs: {
+                                                          small: "",
+                                                          color: "success"
+                                                        }
+                                                      },
+                                                      on
+                                                    ),
+                                                    [
+                                                      _c(
+                                                        "v-icon",
+                                                        {
+                                                          attrs: {
+                                                            small: "",
+                                                            left: ""
+                                                          }
+                                                        },
+                                                        [_vm._v("fa-plus")]
+                                                      ),
+                                                      _vm._v(
+                                                        " Add Schedule\n                                    "
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          null,
+                                          false,
+                                          3573192970
+                                        ),
+                                        model: {
+                                          value: _vm.dialog,
+                                          callback: function($$v) {
+                                            _vm.dialog = $$v
+                                          },
+                                          expression: "dialog"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-card",
+                                          [
+                                            _c(
+                                              "v-overlay",
+                                              { attrs: { value: _vm.loading } },
+                                              [
+                                                _c("v-progress-circular", {
+                                                  attrs: {
+                                                    size: 100,
+                                                    width: 5,
+                                                    color:
+                                                      "light-green accent-4",
+                                                    indeterminate: ""
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c("v-card-title", [
+                                              _c(
+                                                "span",
+                                                { staticClass: "headline" },
+                                                [_vm._v(_vm._s(_vm.formTitle))]
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-card-text",
+                                              [
+                                                _c(
+                                                  "v-container",
+                                                  [
+                                                    _vm.error
+                                                      ? _c(
+                                                          "v-alert",
+                                                          {
+                                                            attrs: {
+                                                              small: "",
+                                                              type: "error"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("span", [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  _vm.error
+                                                                )
+                                                              )
+                                                            ])
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-row",
+                                                      [
+                                                        _c(
+                                                          "v-col",
+                                                          {
+                                                            attrs: {
+                                                              cols: "12"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("v-select", {
+                                                              attrs: {
+                                                                items:
+                                                                  _vm.barangay_names,
+                                                                label:
+                                                                  "Barangay"
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm
+                                                                    .editedSchedule
+                                                                    .barangay,
+                                                                callback: function(
+                                                                  $$v
+                                                                ) {
+                                                                  _vm.$set(
+                                                                    _vm.editedSchedule,
+                                                                    "barangay",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                                expression:
+                                                                  "editedSchedule.barangay"
+                                                              }
+                                                            })
+                                                          ],
+                                                          1
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-col",
+                                                          {
+                                                            attrs: { cols: "6" }
+                                                          },
+                                                          [
+                                                            _c("v-text-field", {
+                                                              attrs: {
+                                                                label: "Date"
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm
+                                                                    .editedSchedule
+                                                                    .date,
+                                                                callback: function(
+                                                                  $$v
+                                                                ) {
+                                                                  _vm.$set(
+                                                                    _vm.editedSchedule,
+                                                                    "date",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                                expression:
+                                                                  "editedSchedule.date"
+                                                              }
+                                                            })
+                                                          ],
+                                                          1
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "v-col",
+                                                          {
+                                                            attrs: { cols: "6" }
+                                                          },
+                                                          [
+                                                            _c("v-text-field", {
+                                                              attrs: {
+                                                                label: "Time"
+                                                              },
+                                                              model: {
+                                                                value:
+                                                                  _vm
+                                                                    .editedSchedule
+                                                                    .time,
+                                                                callback: function(
+                                                                  $$v
+                                                                ) {
+                                                                  _vm.$set(
+                                                                    _vm.editedSchedule,
+                                                                    "time",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                                expression:
+                                                                  "editedSchedule.time"
+                                                              }
+                                                            })
+                                                          ],
+                                                          1
+                                                        )
+                                                      ],
+                                                      1
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-card-actions",
+                                              [
+                                                _c("div", {
+                                                  staticClass: "flex-grow-1"
+                                                }),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-btn",
+                                                  {
+                                                    attrs: { color: "error" },
+                                                    on: { click: _vm.cancel }
+                                                  },
+                                                  [_vm._v("Cancel")]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-btn",
+                                                  {
+                                                    attrs: { color: "success" },
+                                                    on: {
+                                                      click: _vm.saveSchedule
+                                                    }
+                                                  },
+                                                  [_vm._v("Save")]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e()
+                              ],
+                              1
+                            )
+                          ]
+                        },
+                        proxy: true
+                      },
+                      {
+                        key: "item.action",
+                        fn: function(ref) {
+                          var item = ref.item
+                          return [
+                            _c(
+                              "v-icon",
+                              {
+                                staticClass: "mr-2",
+                                attrs: { small: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editSchedule(item)
+                                  }
+                                }
+                              },
+                              [_vm._v("fa-edit")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-icon",
+                              {
+                                attrs: { small: "" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteSchedule(item)
+                                  }
+                                }
+                              },
+                              [_vm._v("fa-trash-alt")]
+                            )
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4& ***!
@@ -40550,6 +41165,35 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-list-item-subtitle", { staticClass: "caption" }, [
                         _vm._v("Display list of Collectors")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                { attrs: { to: "/schedules" } },
+                [
+                  _c(
+                    "v-list-item-avatar",
+                    [_c("v-icon", [_vm._v("fa-list")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item-content",
+                    [
+                      _c(
+                        "v-list-item-title",
+                        { staticClass: "subtitle-2 font-weight-bold" },
+                        [_vm._v("Schedules")]
+                      ),
+                      _vm._v(" "),
+                      _c("v-list-item-subtitle", { staticClass: "caption" }, [
+                        _vm._v("Display list of Schedules")
                       ])
                     ],
                     1
@@ -96276,8 +96920,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ResidentComponent_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/ResidentComponent.vue */ "./resources/js/components/ResidentComponent.vue");
 /* harmony import */ var _components_BarangayComponent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/BarangayComponent.vue */ "./resources/js/components/BarangayComponent.vue");
 /* harmony import */ var _components_CollectorComponent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/CollectorComponent.vue */ "./resources/js/components/CollectorComponent.vue");
-/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
-/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_CollectorScheduleComponent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/CollectorScheduleComponent.vue */ "./resources/js/components/CollectorScheduleComponent.vue");
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue2-google-maps */ "./node_modules/vue2-google-maps/dist/main.js");
+/* harmony import */ var vue2_google_maps__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(vue2_google_maps__WEBPACK_IMPORTED_MODULE_13__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -96291,6 +96936,7 @@ var opts = {
   }
 };
 var vuetify = new vuetify__WEBPACK_IMPORTED_MODULE_0___default.a(opts);
+
 
 
 
@@ -96370,6 +97016,12 @@ var routes = [{
     components: {
       dashboard: _components_CollectorComponent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
     }
+  }, {
+    path: '/schedules',
+    name: 'schedules',
+    components: {
+      dashboard: _components_CollectorScheduleComponent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+    }
   }]
 }]; // Add a request interceptor to axios
 
@@ -96389,7 +97041,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
   routes: routes
 });
 
-Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_12__, {
+Vue.use(vue2_google_maps__WEBPACK_IMPORTED_MODULE_13__, {
   load: {
     key: 'AIzaSyBLvHFeixDacvhmdX-L_0EoG4of6n0pM1A',
     libraries: 'places'
@@ -96581,6 +97233,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorComponent_vue_vue_type_template_id_c63d9eca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CollectorScheduleComponent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/CollectorScheduleComponent.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CollectorScheduleComponent_vue_vue_type_template_id_6137d578___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CollectorScheduleComponent.vue?vue&type=template&id=6137d578& */ "./resources/js/components/CollectorScheduleComponent.vue?vue&type=template&id=6137d578&");
+/* harmony import */ var _CollectorScheduleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CollectorScheduleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CollectorScheduleComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CollectorScheduleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CollectorScheduleComponent_vue_vue_type_template_id_6137d578___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CollectorScheduleComponent_vue_vue_type_template_id_6137d578___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CollectorScheduleComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CollectorScheduleComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/CollectorScheduleComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorScheduleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CollectorScheduleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorScheduleComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorScheduleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CollectorScheduleComponent.vue?vue&type=template&id=6137d578&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/CollectorScheduleComponent.vue?vue&type=template&id=6137d578& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorScheduleComponent_vue_vue_type_template_id_6137d578___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CollectorScheduleComponent.vue?vue&type=template&id=6137d578& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CollectorScheduleComponent.vue?vue&type=template&id=6137d578&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorScheduleComponent_vue_vue_type_template_id_6137d578___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CollectorScheduleComponent_vue_vue_type_template_id_6137d578___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -53,6 +53,17 @@
                             class="caption">Display list of Collectors</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item to="/schedules">
+                    <v-list-item-avatar>
+                        <v-icon>fa-list</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <v-list-item-title
+                            class="subtitle-2 font-weight-bold">Schedules</v-list-item-title>
+                        <v-list-item-subtitle
+                            class="caption">Display list of Schedules</v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
             <template v-slot:append>
                 <v-list>

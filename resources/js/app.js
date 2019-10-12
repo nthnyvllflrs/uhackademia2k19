@@ -19,6 +19,7 @@ import Report from './components/ReportComponent.vue'
 import Resident from './components/ResidentComponent.vue'
 import Barangay from './components/BarangayComponent.vue'
 import Collector from './components/CollectorComponent.vue'
+import CollectorSchedule from './components/CollectorScheduleComponent.vue'
 
 
 Vue.use(VueRouter)
@@ -56,6 +57,7 @@ const routes = [
             { path: '/residents', name: 'residents', components: {dashboard: Resident}},
             { path: '/barangays', name: 'barangays', components: {dashboard: Barangay}},
             { path: '/collectors', name: 'collectors', components: {dashboard: Collector}},
+            { path: '/schedules', name: 'schedules', components: {dashboard: CollectorSchedule}},
         ]
     },
 ]
