@@ -75,6 +75,6 @@ class ResidentController extends Controller {
     }
 
     public function login_resident(Request $request) {
-        Response::json(Input::all());
+        return 1;
     }
 }
