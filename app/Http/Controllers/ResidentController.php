@@ -81,7 +81,7 @@ class ResidentController extends Controller {
 
         $response = array();
         $response["status"] = 2;
-        $response["message"] = User::where('username', $arry['username'])->value('password');
+        $response["message"] = $arry['username'];
         return $response;
     }
 
