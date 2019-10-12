@@ -84,4 +84,12 @@ class ReportController extends Controller {
         $report->delete();
         return response(null, 204);
     }
+
+    public function send_report(Request $request) {
+        
+        $response = array();
+        $response["status"] = 2;
+        $response["message"] = file_get_contents('php://input');
+        return $response;
+    }
 }
