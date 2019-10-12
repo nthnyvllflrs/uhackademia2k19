@@ -53,4 +53,4 @@ Route::get('for-testing-purpose', function (Request $request) {
 
 Route::post('/android/register_resident', 'ResidentController@register_resident');
 Route::post('/android/login_resident', 'ResidentController@login_resident');
-Route::post('/android/send_report', 'ReportController@store');
+Route::post('/android/send_report', 'ReportController@send_report');
