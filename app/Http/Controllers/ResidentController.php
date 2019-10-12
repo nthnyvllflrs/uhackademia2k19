@@ -76,17 +76,12 @@ class ResidentController extends Controller {
 
     public function login_resident(Request $request) {
         
-        $response = array();
-        $response["status"] = 2;
-        $response["message"] = file_get_contents('php://input');
-        return $response;
-    }
-
-    public function register_resident(Request $request) {
+        // $response = array();
+        // $response["status"] = 2;
+        // $response["message"] = file_get_contents('php://input');
+                
         $arry = array();
         $arry = json_decode(file_get_contents('php://input'));
-        // $request['username']=$arry['username'];
-        // $request['password']=$arry['password'];
         
         $password = User::where('username', $arry['username'])->value('password');
         if (password_verify($arry['password'], $password))
@@ -97,6 +92,13 @@ class ResidentController extends Controller {
         {
             return 2;
         }
-        return 22;
+    }
+
+    public function register_resident(Request $request) {
+        $arry = array();
+        $arry = json_decode(file_get_contents('php://input'));
+        // $request['username']=$arry['username'];
+        // $request['password']=$arry['password'];
+
     }
 }
