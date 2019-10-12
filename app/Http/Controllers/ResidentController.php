@@ -75,9 +75,6 @@ class ResidentController extends Controller {
     }
 
     public function login_resident(Request $request) {
-        $response = array();
-        $response["status"] = 0;
-        $response["message"] = "Login successful";
-        return $response;
+        Response::json(Input::all());
     }
 }
