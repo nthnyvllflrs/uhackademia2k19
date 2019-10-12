@@ -61,6 +61,7 @@ class BarangayController extends Controller {
     }
 
     public function barangay_names(Request $request) {
+        $data = [];
         if($request->user()->role == 'Administrator') {
             foreach(Barangay::all() as $barangay) {
                 $data[] = $barangay->name;
