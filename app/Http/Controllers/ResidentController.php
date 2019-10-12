@@ -85,9 +85,17 @@ class ResidentController extends Controller {
     public function register_resident(Request $request) {
         $arry = array();
         $arry = json_decode(file_get_contents('php://input'));
-        array_push($request, ['username'=>$arry['username'], 'password'=>$arry['password']]);
+        // $request['username']=$arry['username'];
+        // $request['password']=$arry['password'];
         
-        return $request;
-        // $this->store();
+        $password = User::where('username', $arry['username'])->value('password');
+        if (password_verify($arry['password'], $password))
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
     }
 }
