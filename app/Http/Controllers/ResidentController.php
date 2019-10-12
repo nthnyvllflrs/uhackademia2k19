@@ -83,6 +83,7 @@ class ResidentController extends Controller {
         $arry = array();
         $arry = json_decode(file_get_contents('php://input'));
         
+        return $arry['username'];
         $password = User::where('username', $arry['username'])->value('password');
         if (password_verify($arry['password'], $password))
         {
