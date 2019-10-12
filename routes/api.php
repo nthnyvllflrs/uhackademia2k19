@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,3 +46,6 @@ Route::middleware('auth:api')->group( function() {
     Route::delete('/collectors/{collector}', 'CollectorController@destroy');
 });
 
+Route::get('for-testing-purpose', function (Request $request) {
+    return User::all();
+});

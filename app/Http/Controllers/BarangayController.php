@@ -12,6 +12,7 @@ use App\Barangay;
 
 class BarangayController extends Controller {
     public function index() {
+        $barangays = [];
         foreach(Barangay::all() as $barangay) {
             $barangays[] = [
                 'id' => $barangay->id,
