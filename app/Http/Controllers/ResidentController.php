@@ -78,7 +78,8 @@ class ResidentController extends Controller {
         
         $arry = array();
         $arry = json_decode(file_get_contents('php://input'));
-        return User::where('username', $arry['username'])->value('password');
+        return $arry;
+        // return User::where('username', $arry['username'])->value('password');
     }
 
     public function register_resident(Request $request) {
