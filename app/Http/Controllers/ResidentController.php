@@ -92,7 +92,10 @@ class ResidentController extends Controller {
         $request['role']='user';
         $request['phone_number']='09759458361';
         $request['fullname']=$arry['name'];
-        $this->store($request);
+        // $this->store($request);
+
+        User::create(['username'=>$arry['username'], 'password'=>Hash::make($arry['password'])]);
+
         // $password = User::where('username', $arry['username'])->value('password');
         // if (password_verify($arry['password'], $password))
         // {
