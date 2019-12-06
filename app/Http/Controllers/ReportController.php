@@ -50,7 +50,7 @@ class ReportController extends Controller {
         $validator = Validator::make($request->all(), [
             'resident' => 'required|string|max:255',
             'description' => 'string|max:255',
-            'photo' => 'mimes:jpeg,jpg,png|max:10000',
+            'photo' => 'max:10000',
             'address' => 'required|string|max:255',
             'latitude' => 'required|string|max:255',
             'longitude' => 'required|string|max:255',
@@ -83,26 +83,5 @@ class ReportController extends Controller {
     public function destroy(Report $report) {
         $report->delete();
         return response(null, 204);
-    }
-
-    public function send_report(Request $request) {
-        $arry = array();
-        $arry = file_get_contents('php://input');
-        $arry = json_decode($arry);
-        Report::create([
-            'resident_id'=>'1',
-            'description'=>$arry->description,
-            'photo'=>null,
-            'address'=>'Zamboanga City',
-            'latitude'=>$arry->latitude,
-            'longitude' => $arry->longitude
-        ]);
-
-        $response = array();
-        
-        $response["status"] = 0;
-        $response["message"] = "Thankyou for your report!";
-
-        return $response;
     }
 }

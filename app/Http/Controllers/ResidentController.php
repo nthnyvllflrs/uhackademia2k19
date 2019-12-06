@@ -13,6 +13,7 @@ use App\Barangay;
 
 class ResidentController extends Controller {
     public function index(Request $request) {
+        $resident_list = [];
         if($request->user()->role == 'Administrator') {
             $resident_list = Resident::all();
         } else if($request->user()->role == 'Barangay') {

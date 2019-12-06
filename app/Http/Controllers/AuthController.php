@@ -26,7 +26,7 @@ class AuthController extends Controller
         $user = User::create($request->toArray());
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        return response(['token' => $token, 'user_type' => $user->role], 200);
+        return response(['token' => $token, 'user_type' => $user->role, 'user_id' => $user->id], 200);
     }
 
     public function login(Request $request) {
@@ -34,7 +34,7 @@ class AuthController extends Controller
         if($user) {
             if(Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                return response(['token' => $token, 'user_type' => $user->role], 200);
+                return response(['token' => $token, 'user_type' => $user->role, 'user_id' => $user->id, 'user_fullname' => $user->resident->fullname], 200);
             } else {
                 return response('Password missmatch', 422);
             }

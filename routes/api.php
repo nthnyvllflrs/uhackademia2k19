@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ResidentController;
 use Illuminate\Http\Request;
 use App\User;
 /*
@@ -57,6 +56,10 @@ Route::get('for-testing-purpose', function (Request $request) {
     return User::all();
 });
 
-Route::post('/android/register_resident', 'ResidentController@register_resident');
-Route::post('/android/login_resident', 'ResidentController@login_resident');
-Route::post('/android/send_report', 'ReportController@send_report');
+Route::post('/android/reports', 'ReportController@store');
+Route::post('/android/residents', 'ResidentController@store');
+Route::get('/android/barangays', 'BarangayController@index');
+
+// Route::post('/android/register_resident', 'ResidentController@register_resident');
+// Route::post('/android/login_resident', 'ResidentController@login_resident');
+// Route::post('/android/send_report', 'ReportController@send_report');
